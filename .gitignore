@@ -1,0 +1,22 @@
+# swap files
+*.swp
+*.swo
+
+# logs
+*.log
+
+# editor
+*.swo
+*~
+.DS_Store
+.vscode/
+.idea/
+
+# generated
+*.lock
+*.zwc
+.zcompdump*
+*.pyc
+
+# caches
+.cache/

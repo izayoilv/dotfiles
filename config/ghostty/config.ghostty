@@ -1,0 +1,21 @@
+font-family = JetBrainsMono Nerd Font
+font-size = 14
+font-style = retina
+font-variation =
+
+theme = Kanagawa Wave
+background-opacity = 0.85
+background-blur = true
+
+cursor-style = block
+cursor-style-blink = true
+
+scrollback-limit = 10000000
+
+copy-on-select = true
+
+shell-integration-features = cursor,title,path
+
+window-decoration = false
+window-padding-x = 12
+window-padding-y = 8

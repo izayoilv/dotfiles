@@ -1,0 +1,315 @@
+# ╔══════════════════════════════════════════════════════╗
+# ║           Starship Config — Kanagawa Wave            ║
+# ║   requires: Nerd Font (JetBrainsMono or similar)     ║
+# ╚══════════════════════════════════════════════════════╝
+
+# ── Top-level settings
+palette      = "kanagawa"
+add_newline  = true
+
+# Prompt layout:
+#  top row:    os · user · dir · git info  ···fill···  languages · duration · time
+#  bottom row: ⛩  (input cursor)
+format = """
+[╭─](violet)\
+$os\
+$username\
+[─](violet)\
+$directory\
+$git_branch\
+$git_status\
+$git_state\
+[─](violet)\
+$fill\
+$c\
+$lua\
+$php\
+$conda\
+$nodejs\
+$python\
+$rust\
+$golang\
+$java\
+$package\
+$docker_context\
+$cmd_duration\
+[─](violet)\
+$time\
+[─╮](violet)
+[╰─](violet)\
+$character\
+"""
+
+right_format = ""
+
+
+# ── Kanagawa Wave Palette ──────────────────────────────
+[palettes.kanagawa]
+fg         = "#DCD7BA"
+bg         = "#1F1F28"
+red        = "#C34043"
+green      = "#76946A"
+yellow     = "#C0A36E"
+blue       = "#7E9CD8"
+magenta    = "#957FB8"
+cyan       = "#6A9589"
+orange     = "#FFA066"
+pink       = "#D27E99"
+sakura     = "#E46876"
+aqua       = "#7AA89F"
+light_blue = "#7FB4CA"
+violet     = "#938AA9"
+gold       = "#DCA561"
+wave       = "#223249"
+ink        = "#252535"
+sumiink    = "#16161D"
+
+
+# ── OS Icon ───────────────────────────────────────────
+[os]
+format = "[ $symbol ](bg:wave fg:light_blue bold)"
+disabled = false
+
+
+[os.symbols]
+Alpaquita = " "
+Alpine = " "
+AlmaLinux = " "
+Amazon = " "
+Android = " "
+AOSC = " "
+Arch = " "
+Artix = " "
+CachyOS = " "
+CentOS = " "
+Debian = " "
+DragonFly = " "
+Elementary = " "
+Emscripten = " "
+EndeavourOS = " "
+Fedora = " "
+FreeBSD = " "
+Garuda = "󰛓 "
+Gentoo = " "
+HardenedBSD = "󰞌 "
+Illumos = "󰈸 "
+Ios = "󰀷 "
+Kali = " "
+Linux = " "
+Mabox = " "
+Macos = " "
+Manjaro = " "
+Mariner = " "
+MidnightBSD = " "
+Mint = " "
+NetBSD = " "
+NixOS = " "
+Nobara = " "
+OpenBSD = "󰈺 "
+openSUSE = " "
+OracleLinux = "󰌷 "
+Pop = " "
+Raspbian = " "
+Redhat = " "
+RedHatEnterprise = " "
+RockyLinux = " "
+Redox = "󰀘 "
+Solus = "󰠳 "
+SUSE = " "
+Ubuntu = " "
+Unknown = " "
+Void = " "
+Windows = "󰍲 "
+Zorin = " "
+
+
+# ── Username ──────────────────────────────────────────
+[username]
+format = "[󰀉 $user ](bg:wave fg:pink bold)"
+show_always = true
+
+
+# ── Directory ─────────────────────────────────────────
+[directory]
+format = "[ 󰉋 $path ](bg:ink fg:aqua bold)"
+truncation_length = 3
+truncation_symbol = "󰇘 "
+read_only = " 󰌾"
+read_only_style = "fg:sakura bg:ink"
+style = "bg:ink fg:aqua bold"
+home_symbol = "󰮟 ~"
+
+
+[directory.substitutions]
+'Documents' = 'Documents 󰈙 '
+'Downloads' = 'Downloads  '
+'Music' = 'Music  '
+'Pictures' = 'Pictures  '
+
+
+# ── Git Branch ────────────────────────────────────────────────────
+[git_branch]
+format            = "[ 󰊢 $branch(:$remote_branch) ](bg:wave fg:magenta bold)"
+truncation_length = 20
+truncation_symbol = "󰇘"
+
+
+# ── Git Status ────────────────────────────────────────────────────
+[git_status]
+style      = "bg:wave fg:yellow"
+format     = "([ $all_status$ahead_behind ](bg:wave fg:yellow))"
+conflicted = "󰞇 "
+ahead      = "󰜷 ${count} "
+behind     = "󰜮 ${count} "
+diverged   = "󱓝 ${ahead_count}󰜷 ${behind_count}󰜮 "
+untracked  = "󰛄 ${count} "
+stashed    = "󱑿 "
+modified   = "󱦹 ${count} "
+staged     = "󰐗 ${count} "
+renamed    = "󰑕 ${count} "
+deleted    = "󰗩 ${count} "
+
+
+# ── Git State (rebasing, merging, cherry-picking…) ───────────────
+[git_state]
+format      = "([ $state( $progress_current/$progress_total) ](bg:wave fg:sakura))"
+rebase      = "󰑖 REBASE"
+merge       = "󰘭 MERGE"
+cherry_pick = "󰴃 PICK"
+bisect      = "󱡀 BISECT"
+
+
+# ── Fill ──────────────────────────────────────────────────────────
+[fill]
+symbol = "─"
+style  = "fg:violet"
+
+# ── Language Versions ─────────────────────────────────
+
+# C / C++
+[c]
+symbol       = " "
+format       = "[ $symbol$version ](fg:light_blue)"
+
+[cpp]
+symbol = " "
+format = "[ $symbol$version ](fg:green)"
+
+[cmake]
+symbol = " "
+format = "[ $symbol$version ](fg:light_blue)"
+
+[xmake]
+symbol = " "
+format = "[ $symbol$version ](fg:light_blue)"
+
+[nodejs]
+symbol = "󰎙 "
+format = "[ $symbol$version ](fg:green)"
+detect_files = ["package.json", ".nvmrc", "tsconfig.json"]
+detect_extensions = ["js", "jsx", "ts", "tsx", "mjs", "cjs"]
+
+[python]
+symbol = "󰌠 "
+format = "[ $symbol$version ](fg:yellow)"
+detect_files = ["requirements.txt", "pyproject.toml", ".python-version", "setup.py"]
+
+[rust]
+symbol = "󱘗 "
+format = "[ $symbol$version ](fg:orange)"
+
+[ruby]
+symbol = " "
+format = "[ $symbol$version ](fg:red)"
+
+[golang]
+symbol = "󰟓 "
+format = "[ $symbol$version ](fg:light_blue)"
+
+[java]
+symbol = "󰬷 "
+format = "[ $symbol$version ](fg:sakura)"
+
+[php]
+symbol = " "
+format = "[ $symbol$version ](fg:blue)"
+
+[conda]
+symbol = " "
+format = "[ $symbol$version ](fg:green)"
+
+[lua]
+symbol = " "
+format = "[ $symbol$version ](fg:blue)"
+
+
+# RAM usage — enabled by default, set disabled=true to turn on
+[memory_usage]
+disabled  = false
+symbol    = "󰍛 "
+format    = "[ $symbol${ram} ](fg:sakura)"
+threshold = 75
+
+
+# ── SSH Hostname (only appears in SSH sessions) ───────────────────
+[hostname]
+ssh_only   = true
+ssh_symbol = " "
+format     = "[ $ssh_symbol$hostname ](bg:wave fg:gold bold)"
+
+
+# ── Package Version ───────────────────────────────────────────────
+[package]
+symbol = "󰏗 "
+format = "[ $symbol$version ](fg:cyan)"
+
+
+# ── Command Duration ──────────────────────────────────
+[cmd_duration]
+format = "[ 󱑍 $duration ](fg:gold)"
+min_time = 2_000          # only show if command took >2s
+show_milliseconds = false
+
+
+# ── Time ──────────────────────────────────────────────
+[time]
+disabled = false
+format = "[ 󰥔 $time ](fg:violet)"
+time_format = "%H:%M"
+use_12hr = false
+
+
+# ── Prompt Character ──────────────────────────────────
+# Changes color on success/error — sakura blade on success, red on error
+[character]
+success_symbol = "[⛩ ](bold fg:sakura)"   # torii gate
+error_symbol   = "[⛩ ](bold fg:red)"
+vimcmd_symbol  = "[󰕷 ](bold fg:green)"    # vim normal mode
+
+
+# ── Docker ────────────────────────────────────────────
+[docker_context]
+format = "[ 󰡨 $context ](fg:light_blue)"
+symbol = "󰡨 "
+
+
+# ── Podman Context ────────────────────────────────────────────────
+# Shows the active podman machine/context only when podman is running.
+[custom.podman]
+symbol      = "\ue866 "
+format      = "[ $symbol$output ](fg:pink)"
+command     = "podman system connection list --format '{{.Name}}' 2>/dev/null | grep -m1 '*' | tr -d '*' || podman info --format '{{.Host.RemoteSocket.Path}}' 2>/dev/null | xargs basename 2>/dev/null || echo 'local'"
+when        = "podman ps > /dev/null 2>&1"  # only render if podman daemon is reachable
+shell       = ["bash", "--noprofile", "--norc"]
+description = "Active podman context"
+
+
+# ── Disabled modules (keep prompt fast & clean) ───────
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[azure]
+disabled = true

@@ -1,0 +1,28 @@
+shell = "zsh"
+
+apply = ["source"]
+
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"
+
+[plugins.zsh-autosuggestions]
+github = "zsh-users/zsh-autosuggestions"
+
+[plugins.zsh-history-substring-search]
+github = "zsh-users/zsh-history-substring-search"
+
+[plugins.zsh-completions]
+github = "zsh-users/zsh-completions"
+
+[plugins.rupa-z]
+github = "rupa/z"
+
+[plugins.zsh-autopair]
+github = "hlissner/zsh-autopair"
+
+[plugins.zsh-you-should-use]
+github = "MichaelAquilina/zsh-you-should-use"
+
+[plugins.git-open]
+github = "paulirish/git-open"
+use = ["git-open.plugin.zsh"]
