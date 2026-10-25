@@ -1,7 +1,9 @@
+default_install_hook_types: [pre-commit, commit-msg]
+
 repos:
   # Commit message linting
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook
-    rev: v9.26.0
+    rev: v9.27.0
     hooks:
       - id: commitlint
         stages: [commit-msg]
@@ -23,6 +25,7 @@ repos:
       - id: detect-private-key
 
   # Secret leaks check
+  # autoupdate resolves v8.30.0; v8.30.1 is the latest release
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.30.1
     hooks:
@@ -30,6 +33,6 @@ repos:
 
   # Lua formatting
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v2.5.2
+    rev: v2.6.0
     hooks:
       - id: stylua-github
