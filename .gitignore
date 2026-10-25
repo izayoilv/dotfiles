@@ -16,6 +16,13 @@
 node_modules/
 .pnpm-store/
 
+# opencode local data
+config/opencode/service.json
+config/opencode/memory/
+config/opencode/specs/
+config/opencode/plans/
+config/opencode/projects/
+
 # generated
 *.lock
 *.zwc

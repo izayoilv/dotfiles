@@ -22,6 +22,7 @@ dotfiles/
 ├── config/                  # Directories symlinked to ~/.config/
 │   ├── nvim/                # Neovim — see README inside
 │   ├── zsh/                 # Zsh configuration
+│   ├── opencode/            # OpenCode global config
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
 │   ├── fastfetch/           # System info
@@ -40,6 +41,7 @@ dotfiles/
 |---|---|
 | **nvim** | [Lazy.nvim](https://github.com/folke/lazy.nvim) + [Snacks.nvim](https://github.com/folke/snacks.nvim) + Kanagawa. See [config/nvim/README.md](config/nvim/README.md) for plugins, keybindings, and language servers. |
 | **zsh** | Vi-mode, autosuggestions, history substring search, fzf, aliases |
+| **opencode** | Global config, agents, commands, skills, instructions |
 | **sheldon** | Lightweight zsh plugin manager configuration |
 | **starship** | Cross-shell prompt with Kanagawa colors |
 | **fastfetch** | System info display |
@@ -77,6 +79,12 @@ Run `./install.sh` first so `~/.npmrc` is linked, then restore the packages with
 ```
 
 Node, npm, and pnpm themselves are prerequisites and are not listed.
+
+## OpenCode
+
+`config/opencode/` holds the repo-managed config: `opencode.json`, `cli.json`, `agents/`, `commands/`, `skills/`, and `instructions/`. Runtime data stays local in `~/.config/opencode/` and is not tracked: `service.json`, `memory/`, `specs/`, `plans/`, and `projects/`.
+
+`cli.json` is copied rather than linked because the terminal client rewrites it; re-copy it after changing TUI settings.
 
 ## Installation
 

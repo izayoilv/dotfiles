@@ -1,0 +1,115 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode-go/deepseek-v4.1-flash",
+  "permissions": [
+    { "action": "external_directory", "resource": "*", "effect": "ask" },
+    { "action": "external_directory", "resource": "~/.config/opencode/*", "effect": "allow" },
+    { "action": "edit", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "*", "effect": "ask" },
+    { "action": "shell", "resource": "git status *", "effect": "allow" },
+    { "action": "shell", "resource": "git diff *", "effect": "allow" },
+    { "action": "shell", "resource": "git log *", "effect": "allow" },
+    { "action": "shell", "resource": "git show *", "effect": "allow" },
+    { "action": "shell", "resource": "git ls*", "effect": "allow" },
+    { "action": "shell", "resource": "git grep *", "effect": "allow" },
+    { "action": "shell", "resource": "git rev-parse *", "effect": "allow" },
+    { "action": "shell", "resource": "git blame *", "effect": "allow" },
+    { "action": "shell", "resource": "git remote -v", "effect": "allow" },
+    { "action": "shell", "resource": "git stash list*", "effect": "allow" },
+    { "action": "shell", "resource": "git tag --list*", "effect": "allow" },
+    { "action": "shell", "resource": "ls *", "effect": "allow" },
+    { "action": "shell", "resource": "diff *", "effect": "allow" },
+    { "action": "shell", "resource": "grep *", "effect": "allow" },
+    { "action": "shell", "resource": "wc *", "effect": "allow" },
+    { "action": "shell", "resource": "tr *", "effect": "allow" },
+    { "action": "read", "resource": "~/.config/opencode/*", "effect": "allow" },
+    { "action": "read", "resource": "*.pem", "effect": "ask" },
+    { "action": "read", "resource": "*.key", "effect": "ask" },
+    { "action": "read", "resource": "*.p12", "effect": "ask" },
+    { "action": "read", "resource": "*.pfx", "effect": "ask" }
+  ],
+  "policies": [
+    { "action": "tool.use", "resource": "read:*.ssh", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.ssh/*", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.ssh/*.pub", "effect": "allow" },
+    { "action": "tool.use", "resource": "read:*.ssh/config*", "effect": "allow" },
+    { "action": "tool.use", "resource": "read:*.ssh/known_hosts*", "effect": "allow" },
+    { "action": "tool.use", "resource": "read:*.aws", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.aws/*", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.aws/config*", "effect": "allow" },
+    { "action": "tool.use", "resource": "read:*.kube/config", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.config/gh/hosts.yml", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.config/opencode/service.json", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.local/share/opencode/auth.json", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.npmrc", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.netrc", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.pypirc", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.docker/config.json", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.cargo/credentials*", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.git-credentials", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.config/gcloud", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.config/gcloud/*", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.azure", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.azure/*", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.gnupg", "effect": "deny" },
+    { "action": "tool.use", "resource": "read:*.gnupg/*", "effect": "deny" },
+    { "action": "tool.use", "resource": "edit:*.config/opencode/service.json", "effect": "deny" },
+    { "action": "tool.use", "resource": "edit:*.local/share/opencode/auth.json", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.ssh*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.aws*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.kube*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.config/gh/hosts.yml*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.config/opencode/service.json*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.local/share/opencode/auth.json*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.npmrc*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.netrc*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.pypirc*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.docker*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.cargo/credentials*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.git-credentials*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.config/gcloud*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.azure*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*.gnupg*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*id_rsa*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*id_ed25519*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:*id_ecdsa*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git diff --no-index*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git grep --no-index*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git *--output=*", "effect": "deny" },
+    { "action": "tool.use", "resource": "shell:git *--output *", "effect": "deny" }
+  ],
+  "instructions": [
+    "/home/izayoilv/.config/opencode/instructions/verify-latest.md",
+    "/home/izayoilv/.config/opencode/instructions/memory.md",
+    "/home/izayoilv/.config/opencode/instructions/code-style.md",
+    "/home/izayoilv/.config/opencode/instructions/docs-location.md"
+  ],
+  "plugins": ["superpowers@git+https://github.com/obra/superpowers.git"],
+  "mcp": {
+    "servers": {
+      "context7": {
+        "type": "remote",
+        "url": "https://mcp.context7.com/mcp"
+      }
+    }
+  },
+  "agents": {
+    "title": { "model": "opencode-go/deepseek-v4.1-flash#high" }
+  },
+  "formatter": true,
+  "watcher": {
+    "ignore": [
+      "**/node_modules/**",
+      "**/target/**",
+      "**/dist/**",
+      "**/build/**",
+      "**/coverage/**",
+      "**/.venv/**"
+    ]
+  },
+  "experimental": {
+    "todo": true,
+    "background_compaction": true,
+    "subagent_depth": 2
+  }
+}
