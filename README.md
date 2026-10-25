@@ -50,7 +50,7 @@ dotfiles/
 | `.gitconfig` | Delta, difftastic, absorb, custom aliases |
 | `.zshenv` | Points `ZDOTDIR` to `~/.config/zsh/` |
 | `.profile` | Sources cargo env and envman load script |
-| `.npmrc` | Sets npm global prefix to `~/.npm-global` |
+| `.npmrc` | pnpm `allow-scripts` allowlist |
 | `.commitlintrc.json` | Conventional commits enforcement |
 
 ## Requirements

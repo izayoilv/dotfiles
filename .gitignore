@@ -20,3 +20,4 @@
 
 # caches
 .cache/
+.zcompcache/

@@ -1,8 +1,6 @@
 [user]
-	name = IzayoiKr
+	name = izayoilv
 	email = izayoilv@gmail.com
-[credential]
-	helper = store
 [core]
     pager = delta
 [interactive]
@@ -31,5 +29,9 @@
     oneFixupPerCommit = false
 [init]
 	templateDir = /home/izayoilv/.config/git/template
+	defaultBranch = main
 [sequence]
     editor = interactive-rebase-tool
+[credential]
+	helper = cache --timeout 28800
+	helper = /home/izayoilv/bin/git-credential-keepassxc
