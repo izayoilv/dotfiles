@@ -1,6 +1,6 @@
 # nvim-config
 
-[![Neovim](https://img.shields.io/badge/neovim-0.12.4-green.svg)](https://neovim.io)
+[![Neovim](https://img.shields.io/badge/neovim-0.12.6-green.svg)](https://neovim.io)
 [![Lua](https://img.shields.io/badge/language-Lua-blueviolet.svg)](https://www.lua.org)
 [![Plugin Manager](https://img.shields.io/badge/plugin_manager-lazy.nvim-orange.svg)](https://github.com/folke/lazy.nvim)
 [![Colorscheme](https://img.shields.io/badge/colorscheme-kanagawa--wave-purple.svg)](https://github.com/rebelot/kanagawa.nvim)
@@ -92,6 +92,8 @@ with full LSP support and format-on-save via [conform.nvim](https://github.com/s
 ### lsp-installer
 
 - [williamboman/mason.nvim](https://dotfyle.com/plugins/williamboman/mason.nvim)
+- [williamboman/mason-lspconfig.nvim](https://dotfyle.com/plugins/williamboman/mason-lspconfig.nvim)
+- [WhoIsSethDaniel/mason-tool-installer.nvim](https://dotfyle.com/plugins/WhoIsSethDaniel/mason-tool-installer.nvim)
 
 ### marks
 
@@ -148,19 +150,20 @@ with full LSP support and format-on-save via [conform.nvim](https://github.com/s
 - lemminx
 - lua_ls
 - pyright
+- ruff
 - rust_analyzer
 - tailwindcss
 - taplo
 - vtsls
 - yamlls
 
-> `sqlfluff` is installed via Mason, and `ruff` formats with `ruff_format`.
+> `sqlfluff`, `stylua`, and `ktlint` are installed via Mason, and `ruff` formats with `ruff_format`.
 > These lists were generated from [Dotfyle](https://dotfyle.com) for `izayoilv/nvim-config`.
 
 ## Extras
 
 - **Format-on-save** — conform.nvim (stylua, prettier, ruff_format, gofmt, rustfmt, clang-format,
-  with LSP fallback). `<leader>fo` formats manually
+  ktlint, with LSP fallback). `<leader>fo` formats manually
 - **Snacks.nvim** — picker (finder/live grep/buffers/help), explorer sidebar with git-status badges
   (hidden files shown by default, `<a-h>` toggles hidden, `<a-i>` toggles ignored), terminal,
   notifications, image support
@@ -196,4 +199,5 @@ git clone https://github.com/izayoilv/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 nvim --headless "+Lazy! sync" +qa
+nvim --headless "+MasonToolsInstallSync" +qa
 ```

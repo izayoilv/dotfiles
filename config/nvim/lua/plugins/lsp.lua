@@ -3,6 +3,7 @@ return {
     dependencies = {
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
         "hrsh7th/nvim-cmp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
@@ -17,10 +18,6 @@ return {
         require("luasnip.loaders.from_vscode").lazy_load()
 
         require("mason").setup({
-            ensure_installed = {
-                "sqlfluff",
-                "stylua",
-            },
             ui = {
                 border = "double",
             },
@@ -47,6 +44,13 @@ return {
                 "dockerls",
                 "lemminx",
                 "csharp_ls",
+            },
+        })
+        require("mason-tool-installer").setup({
+            ensure_installed = {
+                "sqlfluff",
+                "stylua",
+                "ktlint",
             },
         })
 
@@ -313,9 +317,6 @@ return {
 
                 map("n", "<leader>rn", vim.lsp.buf.rename, "LSP: Rename symbol")
                 map("n", "<leader>ca", vim.lsp.buf.code_action, "LSP: Code action")
-                map("n", "<leader>fo", function()
-                    require("conform").format({ async = true, lsp_format = "fallback" })
-                end, "Format buffer")
 
                 map("n", "[d", function()
                     vim.diagnostic.jump({ count = -1 })

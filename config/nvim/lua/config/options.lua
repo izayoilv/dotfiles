@@ -3,7 +3,7 @@ vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.g.transparent_background = true
 
-local pnpm_host = vim.fn.glob("~/.local/share/pnpm/global/v11/*/node_modules/neovim/bin/cli.js", false, true)
+local pnpm_host = vim.fn.glob("~/.local/share/pnpm/global/*/*/node_modules/neovim/bin/cli.js", false, true)
 if #pnpm_host > 0 then
     vim.g.node_host_prog = pnpm_host[1]
 end

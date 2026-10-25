@@ -36,7 +36,9 @@ return {
         },
     },
     opts = {
-        ignored_filetypes = { "nofile", "prompt", "qf" },
-        default_amount = 3,
+        ignored_buftypes = { "nofile", "prompt", "quickfix" },
+        resize = {
+            amount = 3,
+        },
     },
 }
