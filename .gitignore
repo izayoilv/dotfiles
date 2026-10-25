@@ -12,6 +12,10 @@
 .vscode/
 .idea/
 
+# node
+node_modules/
+.pnpm-store/
+
 # generated
 *.lock
 *.zwc

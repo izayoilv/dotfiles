@@ -1,0 +1,20 @@
+# pnpm globals captured 2026-10-25 (Node v24.22.1, pnpm 12.15.0)
+@commitlint/cli@21.2.4
+@commitlint/config-conventional@21.2.4
+@mermaid-js/mermaid-cli@11.17.0
+@moonshot-ai/kimi-code@0.34.0
+@openai/codex@0.147.0
+@opencode/cli@2.1.4
+@woodpecker.co/cli@0.0.1
+commitizen@4.3.2
+cz-conventional-changelog@3.3.0
+kill-port@2.0.1
+lighthouse@13.5.0
+neovim@5.5.0
+prettier@3.9.10
+puppeteer-core@25.16.0
+repomix@1.18.1
+sass-migrator@2.6.1
+sharp-cli@5.3.0
+ts-node@10.9.2
+tsx@4.23.15

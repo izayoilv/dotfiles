@@ -26,7 +26,9 @@ dotfiles/
 │   ├── starship/            # Starship prompt
 │   ├── fastfetch/           # System info
 │   └── ghostty/             # Ghostty terminal
+├── packages/                # Pinned global npm/pnpm inventories
 ├── install.sh               # Symlink installer
+├── install-packages.sh      # Global package installer
 ├── .pre-commit-config.yaml  # Pre-commit hooks (lint, format, secrets)
 ├── .gitignore
 └── LICENSE
@@ -58,7 +60,23 @@ dotfiles/
 - Linux (Fedora tested)
 - Zsh 5.0+
 - Git 2.20+
+- Node.js 24+ and pnpm 12+ (for global package restoration)
 - Neovim 0.12+ (for nvim config)
+
+## Global packages
+
+Pinned inventories of the globally installed CLI tools:
+
+- `packages/npm-global.txt` — npm globals
+- `packages/pnpm-global.txt` — pnpm globals
+
+Run `./install.sh` first so `~/.npmrc` is linked, then restore the packages with:
+
+```sh
+./install-packages.sh
+```
+
+Node, npm, and pnpm themselves are prerequisites and are not listed.
 
 ## Installation
 
