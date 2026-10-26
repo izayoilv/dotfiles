@@ -20,3 +20,5 @@ for _proto_path in \
 done
 export PATH
 unset _proto_path
+
+export DOTFILES_PROFILE_LOADED=1

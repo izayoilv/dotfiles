@@ -17,6 +17,8 @@ dotfiles/
 │   ├── .gitconfig
 │   ├── .zshenv
 │   ├── .profile
+│   ├── .bash_profile
+│   ├── .bashrc
 │   ├── .npmrc
 │   └── .commitlintrc.json
 ├── config/                  # Directories symlinked to ~/.config/
@@ -56,14 +58,16 @@ dotfiles/
 |---|---|
 | `.gitconfig` | Delta, difftastic, absorb, custom aliases |
 | `.zshenv` | Points `ZDOTDIR` to `~/.config/zsh/` and sets the Proto/Cargo/npm/pnpm PATH |
-| `.profile` | Applies the same toolchain PATH for login shells |
+| `.profile` | Shared toolchain PATH and npm/pnpm/uv environment for login shells |
+| `.bash_profile` | Sources the shared profile and bashrc |
+| `.bashrc` | Bash interactive config mirroring the zsh setup |
 | `.npmrc` | pnpm `allow-scripts` allowlist |
 | `.commitlintrc.json` | Conventional commits enforcement |
 
 ## Requirements
 
 - Linux (Fedora tested)
-- Zsh 5.0+
+- Zsh 5.0+ and Bash 4.0+
 - Git 2.20+
 - curl, tar, xz, and sha256sum (Proto and rustup bootstrap)
 - Neovim 0.12+ (for nvim config)

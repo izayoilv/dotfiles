@@ -20,6 +20,8 @@ copy() {
 link "$DOTFILES_DIR/home/.gitconfig"        "$HOME/.gitconfig"
 link "$DOTFILES_DIR/home/.zshenv"           "$HOME/.zshenv"
 link "$DOTFILES_DIR/home/.profile"          "$HOME/.profile"
+link "$DOTFILES_DIR/home/.bash_profile"     "$HOME/.bash_profile"
+link "$DOTFILES_DIR/home/.bashrc"           "$HOME/.bashrc"
 link "$DOTFILES_DIR/home/.npmrc"            "$HOME/.npmrc"
 link "$DOTFILES_DIR/home/.commitlintrc.json" "$HOME/.commitlintrc.json"
 
