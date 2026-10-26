@@ -1,0 +1,20 @@
+node = "latest"
+npm = "latest"
+pnpm = "latest"
+go = "latest"
+ruby = "latest"
+uv = "latest"
+rust = "latest"
+
+[settings]
+auto-clean = false
+auto-install = false
+builtin-backends = false
+community-tools = false
+telemetry = false
+
+[settings.build]
+install-system-packages = false
+
+[settings.http]
+allow-invalid-certs = false

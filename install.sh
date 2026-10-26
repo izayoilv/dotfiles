@@ -23,6 +23,10 @@ link "$DOTFILES_DIR/home/.profile"          "$HOME/.profile"
 link "$DOTFILES_DIR/home/.npmrc"            "$HOME/.npmrc"
 link "$DOTFILES_DIR/home/.commitlintrc.json" "$HOME/.commitlintrc.json"
 
+mkdir -p "$HOME/.proto" "$HOME/.config/uv"
+link "$DOTFILES_DIR/config/proto/.prototools" "$HOME/.proto/.prototools"
+link "$DOTFILES_DIR/config/uv/uv.toml"        "$HOME/.config/uv/uv.toml"
+
 link "$DOTFILES_DIR/config/nvim"       "$HOME/.config/nvim"
 link "$DOTFILES_DIR/config/zsh"        "$HOME/.config/zsh"
 link "$DOTFILES_DIR/config/starship"   "$HOME/.config/starship"

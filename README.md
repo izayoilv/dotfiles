@@ -22,6 +22,8 @@ dotfiles/
 ├── config/                  # Directories symlinked to ~/.config/
 │   ├── nvim/                # Neovim — see README inside
 │   ├── zsh/                 # Zsh configuration
+│   ├── proto/               # Global Proto toolchain baseline
+│   ├── uv/                  # uv Python preference
 │   ├── opencode/            # OpenCode global config
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
@@ -30,6 +32,7 @@ dotfiles/
 ├── packages/                # Pinned global npm/pnpm inventories
 ├── install.sh               # Symlink installer
 ├── install-packages.sh      # Global package installer
+├── install-proto.sh         # Proto toolchain installer
 ├── .pre-commit-config.yaml  # Pre-commit hooks (lint, format, secrets)
 ├── .gitignore
 └── LICENSE
@@ -52,8 +55,8 @@ dotfiles/
 | File | Description |
 |---|---|
 | `.gitconfig` | Delta, difftastic, absorb, custom aliases |
-| `.zshenv` | Points `ZDOTDIR` to `~/.config/zsh/` |
-| `.profile` | Sources cargo env and envman load script |
+| `.zshenv` | Points `ZDOTDIR` to `~/.config/zsh/` and sets the Proto/Cargo/npm/pnpm PATH |
+| `.profile` | Applies the same toolchain PATH for login shells |
 | `.npmrc` | pnpm `allow-scripts` allowlist |
 | `.commitlintrc.json` | Conventional commits enforcement |
 
@@ -62,23 +65,35 @@ dotfiles/
 - Linux (Fedora tested)
 - Zsh 5.0+
 - Git 2.20+
-- Node.js 24+ and pnpm 12+ (for global package restoration)
+- curl, tar, xz, and sha256sum (Proto and rustup bootstrap)
 - Neovim 0.12+ (for nvim config)
 
 ## Global packages
 
 Pinned inventories of the globally installed CLI tools:
 
-- `packages/npm-global.txt` — npm globals
-- `packages/pnpm-global.txt` — pnpm globals
+- `packages/npm-global.txt` — npm globals in `~/.local/share/npm`
+- `packages/pnpm-global.txt` — pnpm globals in `~/.local/share/pnpm`
 
-Run `./install.sh` first so `~/.npmrc` is linked, then restore the packages with:
+Node, npm, and pnpm are provided by Proto, not by the OS. Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
 
 ```sh
 ./install-packages.sh
 ```
 
-Node, npm, and pnpm themselves are prerequisites and are not listed.
+## Proto toolchains
+
+`install-proto.sh` verifies and installs a pinned Proto release, then installs the global baseline from `config/proto/.prototools`. Global pins use `latest`; project `.prototools` and committed `.protolock` files take precedence.
+
+The global config disables telemetry, community plugins, auto-install/clean, builtin backends, and system package installs. Global config cannot use `.protolock`, so refresh the baseline deliberately:
+
+```sh
+proto install --config-mode global -y
+```
+
+Rust is delegated to rustup, and uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
+
+System Go and uv packages can be removed because Proto shims take precedence. System Ruby stays because Fedora's texlive packages depend on it.
 
 ## OpenCode
 
@@ -92,6 +107,8 @@ Node, npm, and pnpm themselves are prerequisites and are not listed.
 git clone https://github.com/izayoilv/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
+./install-proto.sh
+./install-packages.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Re-run after updates.

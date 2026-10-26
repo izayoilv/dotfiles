@@ -27,13 +27,6 @@ HISTSIZE=50000
 SAVEHIST=50000
 
 export STARSHIP_CONFIG="$HOME/.config/starship/starship.toml"
-export PNPM_HOME="$HOME/.local/share/pnpm"
-[[ ":$PATH:" != *":$PNPM_HOME/bin:"* ]] && export PATH="$PNPM_HOME/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 
 export BERG_BASE_URL="codeberg.org"
 # export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
@@ -126,3 +119,7 @@ if (( $+commands[fastfetch] )); then
 fi
 
 [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+
+if (( $+commands[proto] )); then
+    eval "$(proto activate zsh)"
+fi
