@@ -97,7 +97,7 @@ proto install --config-mode global -y
 
 Rust is delegated to rustup, and uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
 
-System Go and uv packages can be removed because Proto shims take precedence. System Ruby stays because Fedora's texlive packages depend on it.
+nvm is retired: both shells resolve Node, npm, and pnpm through Proto shims. System Go, uv, cargo, and rust packages can be removed because Proto/rustup shims take precedence. System Ruby stays because Fedora's texlive packages depend on it.
 
 ## OpenCode
 
