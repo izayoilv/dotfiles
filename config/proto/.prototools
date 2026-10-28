@@ -5,6 +5,8 @@ go = "latest"
 ruby = "latest"
 uv = "latest"
 rust = "latest"
+java = "temurin-21"
+kotlin = "2.4"
 
 [settings]
 auto-clean = false

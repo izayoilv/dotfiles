@@ -2,7 +2,6 @@
 
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export SDKMAN_DIR="$HOME/.sdkman"
 
 add_to_path() {
     if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -117,8 +116,6 @@ fi
 if (( $+commands[fastfetch] )); then
     fastfetch
 fi
-
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 if (( $+commands[proto] )); then
     eval "$(proto activate zsh)"

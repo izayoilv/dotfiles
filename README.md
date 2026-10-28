@@ -26,6 +26,7 @@ dotfiles/
 │   ├── zsh/                 # Zsh configuration
 │   ├── proto/               # Global Proto toolchain baseline
 │   ├── uv/                  # uv Python preference
+│   ├── gradle/              # Shared Gradle user properties
 │   ├── opencode/            # OpenCode global config
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
@@ -47,6 +48,7 @@ dotfiles/
 |---|---|
 | **nvim** | [Lazy.nvim](https://github.com/folke/lazy.nvim) + [Snacks.nvim](https://github.com/folke/snacks.nvim) + Kanagawa. See [config/nvim/README.md](config/nvim/README.md) for plugins, keybindings, and language servers. |
 | **zsh** | Vi-mode, autosuggestions, history substring search, fzf, aliases |
+| **gradle** | Shared `~/.gradle/gradle.properties`; no hardcoded SDKMAN JDK |
 | **opencode** | Global config, agents, commands, skills, instructions |
 | **sheldon** | Lightweight zsh plugin manager configuration |
 | **starship** | Cross-shell prompt with Kanagawa colors |
@@ -99,6 +101,8 @@ proto install --config-mode global -y
 Rust is delegated to rustup, and uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
 
 nvm is retired: both shells resolve Node, npm, and pnpm through Proto shims. System Go, uv, cargo, and rust packages can be removed because Proto/rustup shims take precedence.
+
+Java uses Temurin 21 and Kotlin is pinned to 2.4; both are managed by Proto. Gradle is wrapper-only (`./gradlew`); there is no global `gradle` command. SDKMAN is retired.
 
 ## LaTeX
 

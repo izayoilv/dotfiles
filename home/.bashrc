@@ -8,7 +8,6 @@ fi
 
 export ANDROID_HOME="$HOME/Android/Sdk"
 export ANDROID_SDK_ROOT="$ANDROID_HOME"
-export SDKMAN_DIR="$HOME/.sdkman"
 
 add_to_path() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
@@ -39,10 +38,6 @@ fi
 export BERG_BASE_URL="codeberg.org"
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/.cache/ms-playwright"
 export KUBECONFIG="$HOME/.kube/config"
-
-if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]; then
-    . "$HOME/.sdkman/bin/sdkman-init.sh"
-fi
 
 if [[ $- == *i* ]] && command -v fastfetch >/dev/null 2>&1; then
     fastfetch
