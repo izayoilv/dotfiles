@@ -48,7 +48,9 @@ dotfiles/
 |---|---|
 | **nvim** | [Lazy.nvim](https://github.com/folke/lazy.nvim) + [Snacks.nvim](https://github.com/folke/snacks.nvim) + Kanagawa. See [config/nvim/README.md](config/nvim/README.md) for plugins, keybindings, and language servers. |
 | **zsh** | Vi-mode, autosuggestions, history substring search, fzf, aliases |
-| **gradle** | Shared `~/.gradle/gradle.properties`; no hardcoded SDKMAN JDK |
+| **proto** | Global toolchain baseline and security settings |
+| **uv** | Managed-Python preference |
+| **gradle** | Shared `~/.gradle/gradle.properties`; the JDK is resolved from Proto |
 | **opencode** | Global config, agents, commands, skills, instructions |
 | **sheldon** | Lightweight zsh plugin manager configuration |
 | **starship** | Cross-shell prompt with Kanagawa colors |
@@ -60,8 +62,8 @@ dotfiles/
 | File | Description |
 |---|---|
 | `.gitconfig` | Delta, difftastic, absorb, custom aliases |
-| `.zshenv` | Points `ZDOTDIR` to `~/.config/zsh/` and sets the Proto/Cargo/npm/pnpm PATH |
-| `.profile` | Shared toolchain PATH and npm/pnpm/uv environment for login shells |
+| `.zshenv` | Sets `ZDOTDIR`, Proto/Cargo/JDK/npm/pnpm PATH |
+| `.profile` | Shared login-shell PATH and Java environment |
 | `.bash_profile` | Sources the shared profile and bashrc |
 | `.bashrc` | Bash interactive config mirroring the zsh setup |
 | `.npmrc` | pnpm `allow-scripts` allowlist |
@@ -82,7 +84,7 @@ Pinned inventories of the globally installed CLI tools:
 - `packages/npm-global.txt` — npm globals in `~/.local/share/npm`
 - `packages/pnpm-global.txt` — pnpm globals in `~/.local/share/pnpm`
 
-Node, npm, and pnpm are provided by Proto, not by the OS. Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
+Node, npm, pnpm, and Bun are provided by Proto, not by the OS. Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
 
 ```sh
 ./install-packages.sh
@@ -90,7 +92,7 @@ Node, npm, and pnpm are provided by Proto, not by the OS. Run `./install.sh` and
 
 ## Proto toolchains
 
-`install-proto.sh` verifies and installs a pinned Proto release, then installs the global baseline from `config/proto/.prototools`. Global pins use `latest`; project `.prototools` and committed `.protolock` files take precedence.
+`install-proto.sh` verifies and installs a pinned Proto release, then installs the global baseline from `config/proto/.prototools`. Project `.prototools` and committed `.protolock` files take precedence.
 
 The global config disables telemetry, community plugins, auto-install/clean, builtin backends, and system package installs. Global config cannot use `.protolock`, so refresh the baseline deliberately:
 
@@ -98,19 +100,21 @@ The global config disables telemetry, community plugins, auto-install/clean, bui
 proto install --config-mode global -y
 ```
 
-Rust is delegated to rustup, and uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
+Proto provides Node, npm, pnpm, Bun, Go, Ruby, uv, Java (Temurin 21), and Kotlin. Rust is delegated to rustup; uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
 
-nvm is retired: both shells resolve Node, npm, and pnpm through Proto shims. System Go, uv, cargo, and rust packages can be removed because Proto/rustup shims take precedence.
-
-Java uses Temurin 21 and Kotlin is pinned to 2.4; both are managed by Proto. Gradle is wrapper-only (`./gradlew`); there is no global `gradle` command. SDKMAN is retired.
+Gradle is not installed globally; use `./gradlew` in projects. The shell uses Proto shims and resolves `JAVA_HOME` from the active JDK. nvm and SDKMAN are not used.
 
 ## LaTeX
 
-`install-tinytex.sh` verifies and installs TinyTeX v2026.10 (TeX Live 2026) into `~/.TinyTeX`, then installs the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume.
+`install-tinytex.sh` installs TinyTeX v2026.10 (TeX Live 2026) into `~/.TinyTeX` and the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume. Build documents with `latexmk` as usual.
 
-Fedora's `texlive-pdftex` hard-requires `/usr/bin/ruby`, so system Ruby cannot be removed while Fedora TeX Live is installed. TinyTeX is self-contained and allows Fedora `texlive-*` and `ruby` to be removed after the documents compile.
+TinyTeX is self-contained; Fedora TeX Live and system Ruby are not required. Fedora needs `libxcrypt-compat` for TinyTeX's biber:
 
-TinyTeX's bundled `biber` needs the compatibility library from Fedora's `libxcrypt-compat` package (`sudo dnf install libxcrypt-compat`).
+```sh
+sudo dnf install libxcrypt-compat
+```
+
+Manage packages with:
 
 ```sh
 ~/.TinyTeX/bin/x86_64-linux/tlmgr install <package>

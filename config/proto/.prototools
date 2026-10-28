@@ -1,6 +1,7 @@
 node = "latest"
 npm = "latest"
 pnpm = "latest"
+bun = "latest"
 go = "latest"
 ruby = "latest"
 uv = "latest"
