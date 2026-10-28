@@ -35,6 +35,7 @@ dotfiles/
 ├── install.sh               # Symlink installer
 ├── install-packages.sh      # Global package installer
 ├── install-proto.sh         # Proto toolchain installer
+├── install-tinytex.sh       # TinyTeX (TeX Live 2026) installer
 ├── .pre-commit-config.yaml  # Pre-commit hooks (lint, format, secrets)
 ├── .gitignore
 └── LICENSE
@@ -69,7 +70,7 @@ dotfiles/
 - Linux (Fedora tested)
 - Zsh 5.0+ and Bash 4.0+
 - Git 2.20+
-- curl, tar, xz, and sha256sum (Proto and rustup bootstrap)
+- curl, tar, xz, sha256sum, and perl (Proto, rustup, and TinyTeX bootstrap)
 - Neovim 0.12+ (for nvim config)
 
 ## Global packages
@@ -97,7 +98,19 @@ proto install --config-mode global -y
 
 Rust is delegated to rustup, and uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
 
-nvm is retired: both shells resolve Node, npm, and pnpm through Proto shims. System Go, uv, cargo, and rust packages can be removed because Proto/rustup shims take precedence. System Ruby stays because Fedora's texlive packages depend on it.
+nvm is retired: both shells resolve Node, npm, and pnpm through Proto shims. System Go, uv, cargo, and rust packages can be removed because Proto/rustup shims take precedence.
+
+## LaTeX
+
+`install-tinytex.sh` verifies and installs TinyTeX v2026.10 (TeX Live 2026) into `~/.TinyTeX`, then installs the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume.
+
+Fedora's `texlive-pdftex` hard-requires `/usr/bin/ruby`, so system Ruby cannot be removed while Fedora TeX Live is installed. TinyTeX is self-contained and allows Fedora `texlive-*` and `ruby` to be removed after the documents compile.
+
+TinyTeX's bundled `biber` needs the compatibility library from Fedora's `libxcrypt-compat` package (`sudo dnf install libxcrypt-compat`).
+
+```sh
+~/.TinyTeX/bin/x86_64-linux/tlmgr install <package>
+```
 
 ## OpenCode
 
@@ -112,6 +125,7 @@ git clone https://github.com/izayoilv/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
 ./install-proto.sh
+./install-tinytex.sh
 ./install-packages.sh
 ```
 

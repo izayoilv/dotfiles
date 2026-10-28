@@ -7,6 +7,8 @@ path=(
     "$HOME/go/bin"
     "$HOME/.local/share/npm/bin"
     "$HOME/.local/share/pnpm/bin"
+    "$HOME/.TinyTeX/bin/x86_64-linux"
+    "$HOME/.TinyTeX/bin/aarch64-linux"
     $path
 )
 export PATH
