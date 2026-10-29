@@ -1,4 +1,4 @@
-# npm globals captured 2026-10-25 (Node v24.22.1, npm 12.2.1)
+# npm globals captured 2026-10-29 (Node v26.13.0, npm 12.2.1)
 @bitwarden/cli@2026.10.0
 nodemon@3.1.14
 sql-language-server@1.7.1
