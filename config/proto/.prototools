@@ -1,4 +1,4 @@
-node = "latest"
+node = "stable"
 npm = "latest"
 pnpm = "latest"
 bun = "latest"

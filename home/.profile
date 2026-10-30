@@ -14,6 +14,7 @@ fi
 for _proto_path in \
     "$HOME/.TinyTeX/bin/aarch64-linux" \
     "$HOME/.TinyTeX/bin/x86_64-linux" \
+    "$HOME/.bun/bin" \
     "$HOME/.local/share/pnpm/bin" \
     "$HOME/.local/share/npm/bin" \
     "$HOME/go/bin" \

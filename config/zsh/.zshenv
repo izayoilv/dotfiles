@@ -5,6 +5,7 @@ path=(
     "$HOME/.cargo/bin"
     "$HOME/.local/bin"
     "$HOME/go/bin"
+    "$HOME/.bun/bin"
     "$HOME/.local/share/npm/bin"
     "$HOME/.local/share/pnpm/bin"
     "$HOME/.TinyTeX/bin/x86_64-linux"

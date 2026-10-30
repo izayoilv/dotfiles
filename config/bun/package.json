@@ -1,0 +1,40 @@
+{
+  "name": "dotfiles-global",
+  "private": true,
+  "dependencies": {
+    "@bitwarden/cli": "latest",
+    "@commitlint/cli": "latest",
+    "@commitlint/config-conventional": "latest",
+    "@mermaid-js/mermaid-cli": "latest",
+    "@moonshot-ai/kimi-code": "latest",
+    "@openai/codex": "latest",
+    "@opencode/cli": "latest",
+    "@woodpecker.co/cli": "latest",
+    "commitizen": "latest",
+    "cz-conventional-changelog": "latest",
+    "neovim": "latest",
+    "prettier": "latest",
+    "repomix": "latest",
+    "sql-language-server": "latest",
+    "tree-sitter-cli": "latest",
+    "typescript-language-server": "latest",
+    "unlighthouse": "latest",
+    "vscode-langservers-extracted": "latest"
+  },
+  "trustedDependencies": [
+    "@moonshot-ai/kimi-code",
+    "@openai/codex",
+    "@opencode/cli",
+    "@parcel/watcher",
+    "esbuild",
+    "node-pty",
+    "puppeteer",
+    "sharp",
+    "sqlite3",
+    "tree-sitter-cli",
+    "vue-demi"
+  ],
+  "overrides": {
+    "vscode-languageserver-protocol": "3.17.5"
+  }
+}

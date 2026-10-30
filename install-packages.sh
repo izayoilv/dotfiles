@@ -2,37 +2,28 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
-PACKAGES_DIR="$DOTFILES_DIR/packages"
-
-export PROTO_HOME="${PROTO_HOME:-$HOME/.proto}"
-export NPM_CONFIG_PREFIX="${NPM_CONFIG_PREFIX:-$HOME/.local/share/npm}"
-export PNPM_HOME="${PNPM_HOME:-$HOME/.local/share/pnpm}"
-export PATH="$PROTO_HOME/shims:$PROTO_HOME/bin:$NPM_CONFIG_PREFIX/bin:$PNPM_HOME/bin:$PATH"
-mkdir -p "$NPM_CONFIG_PREFIX/bin" "$PNPM_HOME/bin"
+MANIFEST="$DOTFILES_DIR/config/bun/package.json"
+PACKAGES="$DOTFILES_DIR/packages/bun-global.txt"
+GLOBAL_DIR="${BUN_INSTALL_GLOBAL_DIR:-$HOME/.bun/install/global}"
 
 require() {
     command -v "$1" >/dev/null 2>&1 || { echo "$1 is required" >&2; exit 1; }
 }
 
-install_npm() {
-    while IFS= read -r pkg; do
-        case "$pkg" in
-            ''|'#'*) continue ;;
-        esac
-        npm install -g "$pkg"
-    done < "$PACKAGES_DIR/npm-global.txt"
-}
+require bun
 
-install_pnpm() {
-    while IFS= read -r pkg; do
-        case "$pkg" in
-            ''|'#'*) continue ;;
-        esac
-        pnpm add -g "$pkg"
-    done < "$PACKAGES_DIR/pnpm-global.txt"
-}
+mkdir -p "$GLOBAL_DIR"
+cp "$MANIFEST" "$GLOBAL_DIR/package.json"
 
-require npm
-require pnpm
-install_npm
-install_pnpm
+packages=()
+while IFS= read -r pkg; do
+    case "$pkg" in
+        ''|'#'*) continue ;;
+    esac
+    packages+=("$pkg")
+done < "$PACKAGES"
+
+[ "${#packages[@]}" -gt 0 ] || { echo "no global packages configured" >&2; exit 1; }
+
+bun add -g "${packages[@]}"
+bun pm ls -g

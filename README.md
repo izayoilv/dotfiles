@@ -26,15 +26,16 @@ dotfiles/
 │   ├── zsh/                 # Zsh configuration
 │   ├── proto/               # Global Proto toolchain baseline
 │   ├── uv/                  # uv Python preference
+│   ├── bun/                 # Global Bun CLI manifest + trust list
 │   ├── gradle/              # Shared Gradle user properties
 │   ├── opencode/            # OpenCode global config
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
 │   ├── fastfetch/           # System info
 │   └── ghostty/             # Ghostty terminal
-├── packages/                # Pinned global npm/pnpm inventories
+├── packages/                # Bun global CLI inventory
 ├── install.sh               # Symlink installer
-├── install-packages.sh      # Global package installer
+├── install-packages.sh      # Bun global CLI installer
 ├── install-proto.sh         # Proto toolchain installer
 ├── install-tinytex.sh       # TinyTeX (TeX Live 2026) installer
 ├── .pre-commit-config.yaml  # Pre-commit hooks (lint, format, secrets)
@@ -50,6 +51,7 @@ dotfiles/
 | **zsh** | Vi-mode, autosuggestions, history substring search, fzf, aliases |
 | **proto** | Global toolchain baseline and security settings |
 | **uv** | Managed-Python preference |
+| **bun** | Global CLI manifest, trust list, and compatibility overrides |
 | **gradle** | Shared `~/.gradle/gradle.properties`; the JDK is resolved from Proto |
 | **opencode** | Global config, agents, commands, skills, instructions |
 | **sheldon** | Lightweight zsh plugin manager configuration |
@@ -62,7 +64,7 @@ dotfiles/
 | File | Description |
 |---|---|
 | `.gitconfig` | Delta, difftastic, absorb, custom aliases |
-| `.zshenv` | Sets `ZDOTDIR`, Proto/Cargo/JDK/npm/pnpm PATH |
+| `.zshenv` | Sets `ZDOTDIR`, Proto/Cargo/JDK/npm/pnpm/Bun PATH |
 | `.profile` | Shared login-shell PATH and Java environment |
 | `.bash_profile` | Sources the shared profile and bashrc |
 | `.bashrc` | Bash interactive config mirroring the zsh setup |
@@ -79,16 +81,15 @@ dotfiles/
 
 ## Global packages
 
-Pinned inventories of the globally installed CLI tools:
+Global CLI tools are installed with Bun. Versions are intentionally `latest`; the trust list and the `sql-language-server` override live in `config/bun/package.json`. The human-readable inventory is `packages/bun-global.txt`.
 
-- `packages/npm-global.txt` — npm globals in `~/.local/share/npm`
-- `packages/pnpm-global.txt` — pnpm globals in `~/.local/share/pnpm`
-
-Node, npm, pnpm, and Bun are provided by Proto, not by the OS. Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
+Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
 
 ```sh
 ./install-packages.sh
 ```
+
+npm and pnpm remain available for projects, and their global bin paths stay on `PATH`; they do not own global CLIs.
 
 ## Proto toolchains
 
@@ -100,7 +101,7 @@ The global config disables telemetry, community plugins, auto-install/clean, bui
 proto install --config-mode global -y
 ```
 
-Proto provides Node, npm, pnpm, Bun, Go, Ruby, uv, Java (Temurin 21), and Kotlin. Rust is delegated to rustup; uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this).
+Proto provides Node, npm, pnpm, Bun, Go, Ruby, uv, Java (Temurin 21), and Kotlin. Rust is delegated to rustup; uv remains the Python manager. `config/uv/uv.toml` restricts uv to managed Python installations, so run `uv python install 3.14` once per machine (the Proto installer does this). Node uses the `stable` alias; the other global tools use `latest`.
 
 Gradle is not installed globally; use `./gradlew` in projects. The shell uses Proto shims and resolves `JAVA_HOME` from the active JDK. nvm and SDKMAN are not used.
 
