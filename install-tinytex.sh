@@ -22,7 +22,9 @@ done
 
 [ "$(uname -s)" = "Linux" ] && [ "$(uname -m)" = "x86_64" ] || die "supported platform: Linux x86_64"
 
-if ! ldconfig -p 2>/dev/null | grep -q 'libcrypt.so.1'; then
+if ! ldconfig -p 2>/dev/null | grep -q 'libcrypt.so.1' \
+    && [ ! -e /lib64/libcrypt.so.1 ] \
+    && [ ! -e /usr/lib64/libcrypt.so.1 ]; then
     die "TinyTeX's biber requires libcrypt.so.1; run: sudo dnf install libxcrypt-compat"
 fi
 
@@ -69,15 +71,23 @@ if ! "$TINYTEX_BIN/tlmgr" install \
     caption \
     csquotes \
     enumitem \
+    environ \
     fontspec \
     geometry \
     graphics \
     hyperref \
     latexmk \
+    lastpage \
     ltablex \
+    makecell \
     microtype \
+    needspace \
+    pdfcol \
     setspace \
+    tcolorbox \
+    tikzfill \
     titlesec \
+    trimspaces \
     unicode-math \
     xltabular; then
     echo "tlmgr post-install hook failed; rebuilding the LuaLaTeX format..."
