@@ -3,9 +3,13 @@ vim.opt.cursorline = true
 vim.opt.relativenumber = true
 vim.g.transparent_background = true
 
-local pnpm_host = vim.fn.glob("~/.local/share/pnpm/global/*/*/node_modules/neovim/bin/cli.js", false, true)
-if #pnpm_host > 0 then
-    vim.g.node_host_prog = pnpm_host[1]
+local node_host = vim.fn.exepath("neovim-node-host")
+if node_host == "" then
+    local bun_host = vim.fn.glob("~/.bun/install/global/node_modules/neovim/bin/cli.js", false, true)
+    node_host = bun_host[1] or ""
+end
+if node_host ~= "" then
+    vim.g.node_host_prog = node_host
 end
 
 local rocks = vim.fn.stdpath("data") .. "/lua-rocks/hererocks"

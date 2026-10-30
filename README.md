@@ -81,7 +81,7 @@ dotfiles/
 
 ## Global packages
 
-Global CLI tools are installed with Bun. Versions are intentionally `latest`; the trust list and the `sql-language-server` override live in `config/bun/package.json`. The human-readable inventory is `packages/bun-global.txt`.
+Global CLI tools are installed with Bun. Versions are intentionally `latest`; the trust list lives in `config/bun/package.json`. The human-readable inventory is `packages/bun-global.txt`.
 
 Run `./install.sh` and `./install-proto.sh` first, then restore the packages with:
 
