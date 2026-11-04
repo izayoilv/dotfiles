@@ -11,6 +11,7 @@
     "neovim": "latest",
     "prettier": "latest",
     "repomix": "latest",
+    "svgo": "latest",
     "tree-sitter-cli": "latest",
     "unlighthouse": "latest"
   },
