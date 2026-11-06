@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Run as: sudo maintenance"
+    exit 1
+fi
+
+if ! command -v rpm-ostree >/dev/null 2>&1; then
+    echo "This is the Atomic maintenance script; rpm-ostree not found."
+    exit 1
+fi
+
+TARGET_USER="${SUDO_USER:-$(logname 2>/dev/null || true)}"
+if [ -z "$TARGET_USER" ] || ! id -u "$TARGET_USER" >/dev/null 2>&1; then
+    TARGET_USER=""
+fi
+
+run_as_user() {
+    if [ -n "$TARGET_USER" ]; then
+        sudo -u "$TARGET_USER" "$@"
+    fi
+}
+
+pending_state() {
+    rpm-ostree status --pending-exit-77 >/dev/null 2>&1
+    case $? in
+        0) echo ">> No pending deployment." ;;
+        77) echo ">> Reboot required to apply the staged deployment." ;;
+        *) echo ">> Could not determine pending deployment state." ;;
+    esac
+}
+
+flatpak_update() {
+    command -v flatpak >/dev/null 2>&1 || return 0
+    flatpak update --system -y || true
+    run_as_user flatpak update --user -y || true
+}
+
+flatpak_cleanup() {
+    command -v flatpak >/dev/null 2>&1 || return 0
+    flatpak uninstall --system --unused -y || true
+    run_as_user flatpak uninstall --user --unused -y || true
+}
+
+disk_health() {
+    if command -v smartctl >/dev/null 2>&1; then
+        smartctl --scan | while read -r device _; do
+            echo "== $device =="
+            smartctl -H "$device" || true
+            smartctl -A "$device" | grep -E "Percentage Used|Unsafe Shutdowns|Media and Data Integrity Errors|Available Spare" || true
+        done
+    else
+        echo "smartctl is not installed."
+        echo "Install it with: rpm-ostree install smartmontools"
+        echo "Then reboot, or run smartctl from a Toolbx container."
+    fi
+    echo
+    df -h
+}
+
+while true; do
+    echo "=== Fedora Atomic Maintenance ==="
+    echo "1. Update system (rpm-ostree + flatpak + firmware)"
+    echo "2. System status (deployments + pending reboot)"
+    echo "3. Disk health (SMART + df)"
+    echo "4. Clean caches (rpm-ostree + flatpak)"
+    echo "q. Quit"
+    read -r -p "Choice: " choice || exit 0
+
+    case "$choice" in
+        1)
+            rpm-ostree upgrade
+            flatpak_update
+            if command -v fwupdmgr >/dev/null 2>&1; then
+                fwupdmgr refresh --force || true
+                fwupdmgr get-updates || true
+                fwupdmgr update -y || true
+            fi
+            pending_state
+            ;;
+        2)
+            rpm-ostree status
+            echo
+            pending_state
+            ;;
+        3)
+            disk_health
+            ;;
+        4)
+            rpm-ostree cleanup --repomd --base
+            flatpak_cleanup
+            ;;
+        q|Q)
+            exit 0
+            ;;
+        *)
+            echo "Invalid input!"
+            ;;
+    esac
+    echo
+done

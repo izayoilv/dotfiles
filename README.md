@@ -34,7 +34,11 @@ dotfiles/
 │   ├── fastfetch/           # System info
 │   └── ghostty/             # Ghostty terminal
 ├── packages/                # Bun global CLI inventory
+├── scripts/                 # Host maintenance scripts
+│   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
+│   └── maintenance-workstation
 ├── install.sh               # Symlink installer
+├── install-maintenance.sh   # Installs the matching maintenance script
 ├── install-packages.sh      # Bun global CLI installer
 ├── install-proto.sh         # Proto toolchain installer
 ├── install-tinytex.sh       # TinyTeX (TeX Live 2026) installer
@@ -91,6 +95,16 @@ Run `./install.sh` and `./install-proto.sh` first, then restore the packages wit
 
 npm and pnpm remain available for projects, and their global bin paths stay on `PATH`; they do not own global CLIs.
 
+## Maintenance
+
+`install-maintenance.sh` detects Fedora Atomic via `/run/ostree-booted` and installs the matching script as a root-owned `/usr/local/bin/maintenance`. On Atomic, `/usr/local` is `/var/usrlocal`, so it survives upgrades. Run it with:
+
+```sh
+sudo maintenance
+```
+
+The scripts reflect the host model: Workstation uses `dnf`, snap, and Flatpak; Atomic uses `rpm-ostree` and Flatpak. The sudoers `NOPASSWD` rule is optional; without it, sudo prompts for your password.
+
 ## Proto toolchains
 
 `install-proto.sh` verifies and installs a pinned Proto release, then installs the global baseline from `config/proto/.prototools`. Project `.prototools` and committed `.protolock` files take precedence.
@@ -133,6 +147,7 @@ Manage packages with:
 git clone https://github.com/izayoilv/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
 ./install.sh
+sudo ./install-maintenance.sh
 ./install-proto.sh
 ./install-tinytex.sh
 ./install-packages.sh

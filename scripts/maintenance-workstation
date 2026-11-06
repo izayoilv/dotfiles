@@ -1,0 +1,93 @@
+#!/usr/bin/env bash
+
+if [ "$(id -u)" -ne 0 ]; then
+    echo "Run as: sudo maintenance"
+    exit 1
+fi
+
+if ! command -v dnf >/dev/null 2>&1; then
+    echo "This is the Workstation maintenance script; dnf not found."
+    exit 1
+fi
+
+TARGET_USER="${SUDO_USER:-$(logname 2>/dev/null || true)}"
+if [ -z "$TARGET_USER" ] || ! id -u "$TARGET_USER" >/dev/null 2>&1; then
+    TARGET_USER=""
+fi
+
+run_as_user() {
+    if [ -n "$TARGET_USER" ]; then
+        sudo -u "$TARGET_USER" "$@"
+    fi
+}
+
+flatpak_update() {
+    command -v flatpak >/dev/null 2>&1 || return 0
+    flatpak update --system -y || true
+    run_as_user flatpak update --user -y || true
+}
+
+flatpak_cleanup() {
+    command -v flatpak >/dev/null 2>&1 || return 0
+    flatpak uninstall --system --unused -y || true
+    run_as_user flatpak uninstall --user --unused -y || true
+}
+
+disk_health() {
+    if command -v smartctl >/dev/null 2>&1; then
+        smartctl --scan | while read -r device _; do
+            echo "== $device =="
+            smartctl -H "$device" || true
+            smartctl -A "$device" | grep -E "Percentage Used|Unsafe Shutdowns|Media and Data Integrity Errors|Available Spare" || true
+        done
+    else
+        echo "smartctl not installed (sudo dnf install smartmontools)"
+    fi
+    echo
+    df -h
+}
+
+while true; do
+    echo "=== Fedora Workstation Maintenance ==="
+    echo "1. Update system (dnf + flatpak + snap + firmware)"
+    echo "2. Regenerate GRUB config"
+    echo "3. Disk health (SMART + df)"
+    echo "4. Clean caches"
+    echo "q. Quit"
+    read -r -p "Choice: " choice || exit 0
+
+    case "$choice" in
+        1)
+            dnf upgrade --refresh -y
+            dnf autoremove -y
+            flatpak_update
+            if command -v snap >/dev/null 2>&1; then
+                snap refresh
+            fi
+            if command -v fwupdmgr >/dev/null 2>&1; then
+                fwupdmgr refresh --force || true
+                fwupdmgr get-updates || true
+                fwupdmgr update -y || true
+            fi
+            dnf needs-restarting -r || echo ">> Reboot recommended"
+            ;;
+        2)
+            grub2-mkconfig -o /boot/grub2/grub.cfg
+            grubby --default-kernel
+            ;;
+        3)
+            disk_health
+            ;;
+        4)
+            dnf clean all
+            flatpak_cleanup
+            ;;
+        q|Q)
+            exit 0
+            ;;
+        *)
+            echo "Invalid input!"
+            ;;
+    esac
+    echo
+done
