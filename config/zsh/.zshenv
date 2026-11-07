@@ -13,10 +13,13 @@ path=(
     "$HOME/.plenv/bin"
     "$HOME/.plenv/shims"
     "$HOME/perl5/bin"
+    "$HOME/.dotnet"
+    "$HOME/.dotnet/tools"
     $path
 )
 
 export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:$PERL5LIB}"
+export DOTNET_ROOT="$HOME/.dotnet"
 export PATH
 
 export PROTO_HOME="$HOME/.proto"

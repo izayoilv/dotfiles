@@ -43,7 +43,7 @@ return {
                 "taplo",
                 "dockerls",
                 "lemminx",
-                "csharp_ls",
+                "omnisharp",
             },
         })
         require("mason-tool-installer").setup({
@@ -268,6 +268,35 @@ return {
             },
         })
 
+        -- C# LSP selection: omnisharp for Unity projects, csharp_ls for general .NET.
+        -- Both are registered but only one activates per project (via root_dir),
+        -- avoiding duplicate diagnostics/completions.
+        local function is_unity_project(root)
+            return root ~= nil
+                and (vim.uv.fs_stat(root .. "/ProjectSettings/ProjectVersion.txt") ~= nil
+                    or vim.uv.fs_stat(root .. "/Assets") ~= nil)
+        end
+
+        vim.lsp.config("omnisharp", {
+            root_dir = function(bufnr)
+                local root = vim.fs.root(bufnr, { "*.sln", "*.csproj", "Assets", "ProjectSettings" })
+                if root and is_unity_project(root) then
+                    return root
+                end
+                return nil
+            end,
+        })
+
+        vim.lsp.config("csharp_ls", {
+            root_dir = function(bufnr)
+                local root = vim.fs.root(bufnr, { "*.sln", "*.csproj" })
+                if root and not is_unity_project(root) then
+                    return root
+                end
+                return nil
+            end,
+        })
+
         vim.lsp.enable({
             "lua_ls",
             "pyright",
@@ -287,6 +316,7 @@ return {
             "taplo",
             "dockerls",
             "lemminx",
+            "omnisharp",
             "csharp_ls",
         })
 

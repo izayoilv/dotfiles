@@ -38,6 +38,7 @@ dotfiles/
 │   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
 │   └── maintenance-workstation
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
+├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
 ├── install-fonts.sh         # JetBrainsMono Nerd Font installer
 ├── install-plenv.sh         # plenv (Perl) + Neovim::Ext installer
 ├── install.sh               # Symlink installer
@@ -107,6 +108,14 @@ npm and pnpm remain available for projects, and their global bin paths stay on `
 - `@moonshot-ai/kimi-code` requires `libatomic` on Fedora before it runs.
   Layer it with `sudo rpm-ostree install libatomic` (already layered on this
   host), or `kimi` will fail to start.
+- .NET 9 on Fedora 45 needs OpenSSL 3: `sudo rpm-ostree install openssl3-libs`
+  (Fedora 45 ships OpenSSL 4.0, which .NET 9 doesn't support). Reboot to apply.
+- C# LSPs: `omnisharp` (Mason, for Unity) + `csharp-ls` 0.20.0 (dotnet tool,
+  for general .NET). Newer `csharp-ls` versions have a broken NuGet package;
+  pinned to 0.20.0 until upstream fixes it.
+- LLVM/Clang: `brew install llvm` provides `clang` + `clang-format` for C/C++
+  LSP formatting. `luarocks` provides the `jsregexp` LuaSnip transform (build
+  manually from `~/.local/share/nvim/lazy/LuaSnip/deps/jsregexp` if desired).
 - COSMIC desktop theme: a community Kanagawa theme is available at
   https://cosmic-themes.org/103/ — download the `.ron` file and import it via
   COSMIC Settings → Desktop → Appearance → Import. Ghostty, Neovim, and
@@ -176,6 +185,7 @@ sudo ./install-maintenance.sh
 ./install-brew.sh
 ./install-fonts.sh
 ./install-plenv.sh
+./install-dotnet.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Re-run after updates.
