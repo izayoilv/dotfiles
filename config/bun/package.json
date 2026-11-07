@@ -4,6 +4,7 @@
   "dependencies": {
     "@mermaid-js/mermaid-cli": "latest",
     "@moonshot-ai/kimi-code": "latest",
+    "neovim": "latest",
     "@openai/codex": "latest",
     "@opencode/cli": "latest",
     "prettier": "latest",
@@ -20,6 +21,7 @@
     "node-pty",
     "puppeteer",
     "sharp",
+    "neovim",
     "vue-demi"
   ]
 }

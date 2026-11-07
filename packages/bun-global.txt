@@ -1,6 +1,7 @@
 # Bun global CLIs (latest; trust list in config/bun/package.json)
 @mermaid-js/mermaid-cli@latest
 @moonshot-ai/kimi-code@latest  # needs extra system lib on Fedora; see README Notes
+neovim@latest  # Neovim Node.js provider (not the editor binary)
 @openai/codex@latest
 @opencode/cli@latest
 prettier@latest

@@ -80,6 +80,9 @@ add_to_path "/home/linuxbrew/.linuxbrew/bin"
 if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+if [[ -x "$HOME/.plenv/bin/plenv" ]]; then
+    eval "$("$HOME/.plenv/bin/plenv" init -)"
+fi
 
 if (( $+commands[sheldon] )); then
     eval "$(sheldon source)"

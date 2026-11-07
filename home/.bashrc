@@ -24,6 +24,12 @@ add_to_path "/home/linuxbrew/.linuxbrew/bin"
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+add_to_path "$HOME/.plenv/bin"
+add_to_path "$HOME/perl5/bin"
+if [ -x "$HOME/.plenv/bin/plenv" ]; then
+    eval "$("$HOME/.plenv/bin/plenv" init -)"
+fi
+export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:$PERL5LIB}"
 
 if [ -d "$HOME/.bashrc.d" ]; then
     for rc in "$HOME"/.bashrc.d/*; do

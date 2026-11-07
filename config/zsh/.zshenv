@@ -10,8 +10,13 @@ path=(
     "$HOME/.local/share/pnpm/bin"
     "$HOME/.TinyTeX/bin/x86_64-linux"
     "$HOME/.TinyTeX/bin/aarch64-linux"
+    "$HOME/.plenv/bin"
+    "$HOME/.plenv/shims"
+    "$HOME/perl5/bin"
     $path
 )
+
+export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:$PERL5LIB}"
 export PATH
 
 export PROTO_HOME="$HOME/.proto"

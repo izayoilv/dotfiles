@@ -12,6 +12,19 @@ if node_host ~= "" then
     vim.g.node_host_prog = node_host
 end
 
+-- plenv-managed Perl provider (Neovim::Ext in ~/perl5)
+vim.env.PERL5LIB = vim.fn.expand("~/perl5/lib/perl5") .. (vim.env.PERL5LIB and (":" .. vim.env.PERL5LIB) or "")
+local perl_host = vim.fn.exepath("perl")
+if perl_host ~= "" then
+    vim.g.perl_host_prog = perl_host
+end
+
+-- proto-managed Ruby provider
+local ruby_host = vim.fn.exepath("ruby")
+if ruby_host ~= "" then
+    vim.g.ruby_host_prog = ruby_host
+end
+
 local rocks = vim.fn.stdpath("data") .. "/lua-rocks/hererocks"
 package.path = rocks .. "/share/lua/5.1/?.lua;" .. package.path
 package.cpath = rocks .. "/lib/lua/5.1/?.so;" .. package.cpath
