@@ -104,23 +104,8 @@ Run `./install.sh` and `./install-proto.sh` first, then restore the packages wit
 `install-brew.sh` runs `brew bundle` against the root `Brewfile`.
 npm and pnpm remain available for projects, and their global bin paths stay on `PATH`; they do not own global CLIs.
 
-### Notes
-
-- `@moonshot-ai/kimi-code` requires `libatomic` on Fedora before it runs.
-  Layer it with `sudo rpm-ostree install libatomic` (already layered on this
-  host), or `kimi` will fail to start.
-- .NET 9 on Fedora 45 needs OpenSSL 3: `sudo rpm-ostree install openssl3-libs`
-  (Fedora 45 ships OpenSSL 4.0, which .NET 9 doesn't support). Reboot to apply.
-- C# LSPs: `omnisharp` (Mason, for Unity) + `csharp-ls` 0.20.0 (dotnet tool,
-  for general .NET). Newer `csharp-ls` versions have a broken NuGet package;
-  pinned to 0.20.0 until upstream fixes it.
-- LLVM/Clang: `brew install llvm` provides `clang` + `clang-format` for C/C++
-  LSP formatting. `luarocks` provides the `jsregexp` LuaSnip transform (build
-  manually from `~/.local/share/nvim/lazy/LuaSnip/deps/jsregexp` if desired).
-- COSMIC desktop theme: a community Kanagawa theme is available at
-  https://cosmic-themes.org/103/ — download the `.ron` file and import it via
-  COSMIC Settings → Desktop → Appearance → Import. Ghostty, Neovim, and
-  Starship already use Kanagawa Wave.
+Note: `@moonshot-ai/kimi-code` requires `libatomic` on Fedora. Layer it with
+`sudo rpm-ostree install libatomic`.
 
 ## Maintenance
 
@@ -146,26 +131,53 @@ Proto provides Node, npm, pnpm, Bun, Go, Ruby, uv, Java (Temurin 21), and Kotlin
 
 Gradle is not installed globally; use `./gradlew` in projects. The shell uses Proto shims and resolves `JAVA_HOME` from the active JDK. nvm and SDKMAN are not used.
 
+## Language runtimes (optional)
+
+- .NET 9: `./install-dotnet.sh` (official script, user-space). .NET 9 on
+  Fedora 45 needs OpenSSL 3: `sudo rpm-ostree install openssl3-libs`.
+- C# LSPs: `omnisharp` (Mason, for Unity) + `csharp-ls` 0.20.0 (dotnet
+  tool, for general .NET; newer versions have a broken NuGet package).
+- LLVM/Clang: `brew install llvm` provides `clang` + `clang-format` for C/C++
+  LSP formatting. `luarocks` provides the `jsregexp` LuaSnip transform (build
+  manually from `~/.local/share/nvim/lazy/LuaSnip/deps/jsregexp` if desired).
+- Perl: `./install-plenv.sh` (plenv + Neovim::Ext). Defaults to system Perl
+  (latest stable); pass `--build` to compile a separate version.
+- Python: `./install-uv-python.sh` (uv-managed venv + pynvim for nvim).
+
 ## LaTeX
 
 `install-tinytex.sh` installs TinyTeX v2026.10 (TeX Live 2026) into `~/.TinyTeX` and the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume. Build documents with `latexmk` as usual.
 
 TinyTeX is self-contained; Fedora TeX Live and system Ruby are not required. Fedora needs `libxcrypt-compat` for TinyTeX's biber:
 
-TinyTeX quirk (TeX Live 2026): `tlmgr`'s post-install hook invokes `fmtutil`
-with combined `--byfmt`/`--byhyphen` flags that newer `fmtutil` rejects, so the
-format rebuild fails. After install, rebuild manually:
-`~/.TinyTeX/bin/x86_64-linux/fmtutil-sys --byfmt lualatex` (or `--all`).
-
 ```sh
 sudo dnf install libxcrypt-compat
 ```
+
+> **Quirk (TeX Live 2026):** `tlmgr`'s post-install hook invokes `fmtutil` with
+> combined `--byfmt`/`--byhyphen` flags that newer `fmtutil` rejects, so the
+> format rebuild fails. After install, rebuild manually:
+> `~/.TinyTeX/bin/x86_64-linux/fmtutil-sys --byfmt lualatex` (or `--all`).
 
 Manage packages with:
 
 ```sh
 ~/.TinyTeX/bin/x86_64-linux/tlmgr install <package>
 ```
+
+## Desktop (COSMIC)
+
+- COSMIC desktop theme: a community Kanagawa theme is available at
+  https://cosmic-themes.org/103/ — download the `.ron` file and import it via
+  COSMIC Settings → Desktop → Appearance → Import. Ghostty, Neovim, and
+  Starship already use Kanagawa Wave.
+- Media codecs (Fedora Atomic): enable RPM Fusion (free+nonfree), then swap
+  the base ffmpeg for the full build via a coupled override:
+  `sudo rpm-ostree override remove fdk-aac-free libavcodec-free libavdevice-free
+  libavfilter-free libavformat-free libavutil-free libswresample-free
+  libswscale-free ffmpeg-free --install ffmpeg`. Then layer
+  `gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly intel-media-driver
+  libva-utils`. Firefox uses `ffmpeg`; VA-API via `intel-media-driver`.
 
 ## OpenCode
 
