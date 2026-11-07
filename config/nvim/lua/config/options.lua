@@ -25,6 +25,12 @@ if ruby_host ~= "" then
     vim.g.ruby_host_prog = ruby_host
 end
 
+-- uv-managed Python provider (isolated venv with pynvim)
+local uv_python = vim.fn.expand("~/.local/share/nvim/python/bin/python")
+if vim.fn.executable(uv_python) == 1 then
+    vim.g.python3_host_prog = uv_python
+end
+
 local rocks = vim.fn.stdpath("data") .. "/lua-rocks/hererocks"
 package.path = rocks .. "/share/lua/5.1/?.lua;" .. package.path
 package.cpath = rocks .. "/lib/lua/5.1/?.so;" .. package.cpath

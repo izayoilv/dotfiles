@@ -41,6 +41,7 @@ dotfiles/
 ├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
 ├── install-fonts.sh         # JetBrainsMono Nerd Font installer
 ├── install-plenv.sh         # plenv (Perl) + Neovim::Ext installer
+├── install-uv-python.sh     # uv-managed Python + pynvim venv for nvim
 ├── install.sh               # Symlink installer
 ├── install-maintenance.sh   # Installs the matching maintenance script
 ├── install-packages.sh      # Bun global CLI installer
@@ -185,6 +186,7 @@ sudo ./install-maintenance.sh
 ./install-brew.sh
 ./install-fonts.sh
 ./install-plenv.sh
+./install-uv-python.sh
 ./install-dotnet.sh
 ```
 
