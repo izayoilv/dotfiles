@@ -38,6 +38,7 @@ dotfiles/
 │   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
 │   └── maintenance-workstation
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
+├── install-fonts.sh         # JetBrainsMono Nerd Font installer
 ├── install.sh               # Symlink installer
 ├── install-maintenance.sh   # Installs the matching maintenance script
 ├── install-packages.sh      # Bun global CLI installer
@@ -168,6 +169,7 @@ sudo ./install-maintenance.sh
 ./install-tinytex.sh
 ./install-packages.sh
 ./install-brew.sh
+./install-fonts.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Re-run after updates.
