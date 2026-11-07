@@ -106,6 +106,10 @@ npm and pnpm remain available for projects, and their global bin paths stay on `
 - `@moonshot-ai/kimi-code` requires `libatomic` on Fedora before it runs.
   Layer it with `sudo rpm-ostree install libatomic` (already layered on this
   host), or `kimi` will fail to start.
+- COSMIC desktop theme: a community Kanagawa theme is available at
+  https://cosmic-themes.org/103/ — download the `.ron` file and import it via
+  COSMIC Settings → Desktop → Appearance → Import. Ghostty, Neovim, and
+  Starship already use Kanagawa Wave.
 
 ## Maintenance
 
