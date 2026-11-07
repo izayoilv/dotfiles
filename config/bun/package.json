@@ -2,17 +2,13 @@
   "name": "dotfiles-global",
   "private": true,
   "dependencies": {
-    "@bitwarden/cli": "latest",
     "@mermaid-js/mermaid-cli": "latest",
     "@moonshot-ai/kimi-code": "latest",
     "@openai/codex": "latest",
     "@opencode/cli": "latest",
-    "@woodpecker.co/cli": "latest",
-    "neovim": "latest",
     "prettier": "latest",
     "repomix": "latest",
     "svgo": "latest",
-    "tree-sitter-cli": "latest",
     "unlighthouse": "latest"
   },
   "trustedDependencies": [
@@ -24,7 +20,6 @@
     "node-pty",
     "puppeteer",
     "sharp",
-    "tree-sitter-cli",
     "vue-demi"
   ]
 }

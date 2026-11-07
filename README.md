@@ -37,6 +37,7 @@ dotfiles/
 ├── scripts/                 # Host maintenance scripts
 │   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
 │   └── maintenance-workstation
+├── Brewfile                 # Homebrew bundle (install-brew.sh)
 ├── install.sh               # Symlink installer
 ├── install-maintenance.sh   # Installs the matching maintenance script
 ├── install-packages.sh      # Bun global CLI installer
@@ -49,31 +50,31 @@ dotfiles/
 
 ## Configs
 
-| Config | Description |
-|---|---|
-| **nvim** | [Lazy.nvim](https://github.com/folke/lazy.nvim) + [Snacks.nvim](https://github.com/folke/snacks.nvim) + Kanagawa. See [config/nvim/README.md](config/nvim/README.md) for plugins, keybindings, and language servers. |
-| **zsh** | Vi-mode, autosuggestions, history substring search, fzf, aliases |
-| **proto** | Global toolchain baseline and security settings |
-| **uv** | Managed-Python preference |
-| **bun** | Global CLI manifest, trust list, and compatibility overrides |
-| **gradle** | Shared `~/.gradle/gradle.properties`; the JDK is resolved from Proto |
-| **opencode** | Global config, agents, commands, skills, instructions |
-| **sheldon** | Lightweight zsh plugin manager configuration |
-| **starship** | Cross-shell prompt with Kanagawa colors |
-| **fastfetch** | System info display |
-| **ghostty** | Fast terminal emulator |
+| Config        | Description                                                                                                                                                                                                          |
+| ------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **nvim**      | [Lazy.nvim](https://github.com/folke/lazy.nvim) + [Snacks.nvim](https://github.com/folke/snacks.nvim) + Kanagawa. See [config/nvim/README.md](config/nvim/README.md) for plugins, keybindings, and language servers. |
+| **zsh**       | Vi-mode, autosuggestions, history substring search, fzf, aliases                                                                                                                                                     |
+| **proto**     | Global toolchain baseline and security settings                                                                                                                                                                      |
+| **uv**        | Managed-Python preference                                                                                                                                                                                            |
+| **bun**       | Global CLI manifest, trust list, and compatibility overrides                                                                                                                                                         |
+| **gradle**    | Shared `~/.gradle/gradle.properties`; the JDK is resolved from Proto                                                                                                                                                 |
+| **opencode**  | Global config, agents, commands, skills, instructions                                                                                                                                                                |
+| **sheldon**   | Lightweight zsh plugin manager configuration                                                                                                                                                                         |
+| **starship**  | Cross-shell prompt with Kanagawa colors                                                                                                                                                                              |
+| **fastfetch** | System info display                                                                                                                                                                                                  |
+| **ghostty**   | Fast terminal emulator                                                                                                                                                                                               |
 
 ### Home dotfiles
 
-| File | Description |
-|---|---|
-| `.gitconfig` | Delta, difftastic, absorb, custom aliases |
-| `.zshenv` | Sets `ZDOTDIR`, Proto/Cargo/JDK/npm/pnpm/Bun PATH |
-| `.profile` | Shared login-shell PATH and Java environment |
-| `.bash_profile` | Sources the shared profile and bashrc |
-| `.bashrc` | Bash interactive config mirroring the zsh setup |
-| `.npmrc` | pnpm `allow-scripts` allowlist |
-| `.commitlintrc.json` | Conventional commits enforcement |
+| File                 | Description                                       |
+| -------------------- | ------------------------------------------------- |
+| `.gitconfig`         | Delta, difftastic, absorb, custom aliases         |
+| `.zshenv`            | Sets `ZDOTDIR`, Proto/Cargo/JDK/npm/pnpm/Bun PATH |
+| `.profile`           | Shared login-shell PATH and Java environment      |
+| `.bash_profile`      | Sources the shared profile and bashrc             |
+| `.bashrc`            | Bash interactive config mirroring the zsh setup   |
+| `.npmrc`             | pnpm `allow-scripts` allowlist                    |
+| `.commitlintrc.json` | Conventional commits enforcement                  |
 
 ## Requirements
 
@@ -91,9 +92,19 @@ Run `./install.sh` and `./install-proto.sh` first, then restore the packages wit
 
 ```sh
 ./install-packages.sh
+./install-brew.sh
 ```
 
+`install-packages.sh` restores Bun global CLIs from `packages/bun-global.txt`
+(manifest in `config/bun/package.json`);
+`install-brew.sh` runs `brew bundle` against the root `Brewfile`.
 npm and pnpm remain available for projects, and their global bin paths stay on `PATH`; they do not own global CLIs.
+
+### Notes
+
+- `@moonshot-ai/kimi-code` requires `libatomic` on Fedora before it runs.
+  Layer it with `sudo rpm-ostree install libatomic` (already layered on this
+  host), or `kimi` will fail to start.
 
 ## Maintenance
 
@@ -125,6 +136,11 @@ Gradle is not installed globally; use `./gradlew` in projects. The shell uses Pr
 
 TinyTeX is self-contained; Fedora TeX Live and system Ruby are not required. Fedora needs `libxcrypt-compat` for TinyTeX's biber:
 
+TinyTeX quirk (TeX Live 2026): `tlmgr`'s post-install hook invokes `fmtutil`
+with combined `--byfmt`/`--byhyphen` flags that newer `fmtutil` rejects, so the
+format rebuild fails. After install, rebuild manually:
+`~/.TinyTeX/bin/x86_64-linux/fmtutil-sys --byfmt lualatex` (or `--all`).
+
 ```sh
 sudo dnf install libxcrypt-compat
 ```
@@ -151,6 +167,7 @@ sudo ./install-maintenance.sh
 ./install-proto.sh
 ./install-tinytex.sh
 ./install-packages.sh
+./install-brew.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Re-run after updates.

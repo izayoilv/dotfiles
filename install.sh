@@ -37,6 +37,9 @@ link "$DOTFILES_DIR/config/sheldon"    "$HOME/.config/sheldon"
 link "$DOTFILES_DIR/config/fastfetch"  "$HOME/.config/fastfetch"
 link "$DOTFILES_DIR/config/ghostty"    "$HOME/.config/ghostty"
 
+mkdir -p "$HOME/.config/environment.d"
+link "$DOTFILES_DIR/config/environment.d/99-ssh-auth-sock.conf" "$HOME/.config/environment.d/99-ssh-auth-sock.conf"
+
 mkdir -p "$HOME/.config/opencode"
 link "$DOTFILES_DIR/config/opencode/opencode.json"   "$HOME/.config/opencode/opencode.json"
 copy "$DOTFILES_DIR/config/opencode/cli.json"        "$HOME/.config/opencode/cli.json"

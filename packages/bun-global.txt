@@ -1,13 +1,9 @@
 # Bun global CLIs (latest; trust list in config/bun/package.json)
-@bitwarden/cli@latest
 @mermaid-js/mermaid-cli@latest
-@moonshot-ai/kimi-code@latest
+@moonshot-ai/kimi-code@latest  # needs extra system lib on Fedora; see README Notes
 @openai/codex@latest
 @opencode/cli@latest
-@woodpecker.co/cli@latest
-neovim@latest
 prettier@latest
 repomix@latest
 svgo@latest
-tree-sitter-cli@latest
 unlighthouse@latest

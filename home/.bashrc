@@ -20,6 +20,10 @@ add_to_path "$HOME/.composer/vendor/bin"
 add_to_path "$HOME/.dotnet/tools"
 add_to_path "$ANDROID_HOME/cmdline-tools/latest/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
+add_to_path "/home/linuxbrew/.linuxbrew/bin"
+if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 if [ -d "$HOME/.bashrc.d" ]; then
     for rc in "$HOME"/.bashrc.d/*; do
@@ -38,6 +42,7 @@ fi
 export BERG_BASE_URL="codeberg.org"
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/.cache/ms-playwright"
 export KUBECONFIG="$HOME/.kube/config"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket"
 
 if [[ $- == *i* ]] && command -v fastfetch >/dev/null 2>&1; then
     fastfetch

@@ -31,6 +31,7 @@ export BERG_BASE_URL="codeberg.org"
 # export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
 export PLAYWRIGHT_BROWSERS_PATH="$HOME/.cache/ms-playwright"
 export KUBECONFIG="$HOME/.kube/config"
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/ssh-agent.socket"
 export EDITOR=nvim VISUAL=nvim
 
 export SUPERPOWERS_DISABLE_TELEMETRY=true
@@ -74,6 +75,10 @@ if [[ -s "$HOME/.config/envman/load.sh" ]]; then
 fi
 if [[ -s "$HOME/.cargo/env" ]]; then
     source "$HOME/.cargo/env"
+fi
+add_to_path "/home/linuxbrew/.linuxbrew/bin"
+if [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 if (( $+commands[sheldon] )); then
