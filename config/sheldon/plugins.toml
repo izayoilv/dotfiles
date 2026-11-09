@@ -2,9 +2,6 @@ shell = "zsh"
 
 apply = ["source"]
 
-[plugins.zsh-syntax-highlighting]
-github = "zsh-users/zsh-syntax-highlighting"
-
 [plugins.zsh-autosuggestions]
 github = "zsh-users/zsh-autosuggestions"
 
@@ -26,3 +23,7 @@ github = "MichaelAquilina/zsh-you-should-use"
 [plugins.git-open]
 github = "paulirish/git-open"
 use = ["git-open.plugin.zsh"]
+
+# Must be sourced last: it wraps ZLE widgets from the plugins above.
+[plugins.zsh-syntax-highlighting]
+github = "zsh-users/zsh-syntax-highlighting"

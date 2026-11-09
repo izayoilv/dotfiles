@@ -61,6 +61,25 @@ setopt RC_QUOTES
 
 bindkey -v
 
+# Home/End/Delete in vi mode. Unbound ESC-prefixed sequences (e.g. \EOH from
+# Ghostty's terminfo) otherwise fall through to ^[ (vi-cmd-mode).
+# Keep ESC responsive while still allowing the longer sequences to match.
+KEYTIMEOUT=10
+bindkey -M viins '^[OH' beginning-of-line
+bindkey -M viins '^[OF' end-of-line
+bindkey -M viins '^[[H' beginning-of-line
+bindkey -M viins '^[[F' end-of-line
+bindkey -M viins '^[[1~' beginning-of-line
+bindkey -M viins '^[[4~' end-of-line
+bindkey -M viins '^[[3~' delete-char
+bindkey -M vicmd '^[OH' beginning-of-line
+bindkey -M vicmd '^[OF' end-of-line
+bindkey -M vicmd '^[[H' beginning-of-line
+bindkey -M vicmd '^[[F' end-of-line
+bindkey -M vicmd '^[[1~' beginning-of-line
+bindkey -M vicmd '^[[4~' end-of-line
+bindkey -M vicmd '^[[3~' delete-char
+
 zstyle ':completion:*' menu select
 zstyle ':completion:*' loader yes
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
@@ -99,8 +118,14 @@ fi
 if (( $+commands[fzf] )); then
     if [[ -f "$HOME/.fzf.zsh" ]]; then
         source "$HOME/.fzf.zsh"
+    elif [[ -f /home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.zsh ]]; then
+        source /home/linuxbrew/.linuxbrew/opt/fzf/shell/key-bindings.zsh
+        [[ -f /home/linuxbrew/.linuxbrew/opt/fzf/shell/completion.zsh ]] \
+            && source /home/linuxbrew/.linuxbrew/opt/fzf/shell/completion.zsh
     elif [[ -f /usr/share/fzf/shell/key-bindings.zsh ]]; then
         source /usr/share/fzf/shell/key-bindings.zsh
+        [[ -f /usr/share/fzf/shell/completion.zsh ]] \
+            && source /usr/share/fzf/shell/completion.zsh
     fi
 fi
 
