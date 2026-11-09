@@ -37,7 +37,8 @@ dotfiles/
 ├── packages/                # Bun global CLI inventory
 ├── scripts/                 # Host maintenance scripts
 │   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
-│   └── maintenance-workstation
+│   ├── maintenance-workstation
+│   └── toolbox-terminfo     # Install xterm-ghostty terminfo in Toolbx
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
 ├── install-brew.sh          # Homebrew bootstrap + brew bundle
 ├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
@@ -180,6 +181,11 @@ Manage packages with:
   libswscale-free ffmpeg-free --install ffmpeg`. Then layer
   `gstreamer1-plugins-bad-freeworld gstreamer1-plugins-ugly intel-media-driver
   libva-utils`. Firefox uses `ffmpeg`; VA-API via `intel-media-driver`.
+- Ghostty sets `TERM=xterm-ghostty`. Toolbx containers don't ship that terminfo;
+  install it per container with `scripts/toolbox-terminfo` (no args = all
+  containers). SSH hosts are handled by Ghostty's `ssh-terminfo` shell
+  integration; if a remote can't install it, prefix the command with
+  `TERM=xterm-256color`.
 
 ## OpenCode
 

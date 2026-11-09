@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Install Ghostty's terminfo entry into Toolbx containers so that
+# TERM=xterm-ghostty works inside them (COSMIC/Ghostty default).
+#
+# Usage:
+#   toolbox-terminfo              # all Toolbx containers
+#   toolbox-terminfo dev test     # specific containers
+#
+# Run from a Ghostty terminal (needs `infocmp -x xterm-ghostty` on the host).
+
+set -euo pipefail
+
+command -v toolbox >/dev/null 2>&1 || { echo "toolbox is required" >&2; exit 1; }
+infocmp -x xterm-ghostty >/dev/null 2>&1 || {
+    echo "xterm-ghostty terminfo not found on the host" >&2
+    exit 1
+}
+
+containers=("$@")
+if [ "${#containers[@]}" -eq 0 ]; then
+    mapfile -t containers < <(
+        podman ps -a \
+            --filter label=com.github.containers.toolbox=true \
+            --format '{{.Names}}'
+    )
+fi
+
+if [ "${#containers[@]}" -eq 0 ]; then
+    echo "No Toolbx containers found."
+    exit 0
+fi
+
+for container in "${containers[@]}"; do
+    echo "Installing xterm-ghostty terminfo into '$container'..."
+    infocmp -x xterm-ghostty | toolbox run -c "$container" tic -x - >/dev/null
+    echo "  done"
+done
