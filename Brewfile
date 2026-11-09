@@ -1,8 +1,6 @@
 # Homebrew bundle for Fedora Atomic CLI tooling.
 # Install with: ./install-brew.sh  (runs `brew bundle`)
 
-tap "homebrew/core"
-
 # CLI utilities
 brew "bat"
 brew "bitwarden-cli"
