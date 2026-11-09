@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-TINYTEX_VERSION="${TINYTEX_VERSION:-2026.10}"
+TINYTEX_VERSION="${TINYTEX_VERSION:-2026.11}"
 TINYTEX_HOME="${TINYTEX_HOME:-$HOME/.TinyTeX}"
 TINYTEX_BUNDLE="TinyTeX-1-linux-x86_64-v${TINYTEX_VERSION}.tar.xz"
-TINYTEX_SHA256="4d519d6236ee6798e3ec0d8e2093d1fda01aeb267aa22c2a5586d76bcfce6566"
+TINYTEX_SHA256="5b75befa848deae702ae6fa12ff0eef3f110d7e4e2a979ae99f101eba3c9c70d"
 TINYTEX_URL="https://github.com/rstudio/tinytex-releases/releases/download/v${TINYTEX_VERSION}/${TINYTEX_BUNDLE}"
 TINYTEX_BIN="$TINYTEX_HOME/bin/x86_64-linux"
 

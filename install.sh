@@ -2,10 +2,21 @@
 set -euo pipefail
 
 DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
+BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)-$$"
+
+backup() {
+    local dest="$1"
+    [ -e "$dest" ] || [ -L "$dest" ] || return 0
+    [ -L "$dest" ] && return 0
+    mkdir -p "$BACKUP_DIR"
+    mv "$dest" "$BACKUP_DIR/$(basename "$dest")"
+    echo "Backed up $dest -> $BACKUP_DIR/"
+}
 
 link() {
     local source="$1"
     local dest="$2"
+    backup "$dest"
     rm -rf "$dest"
     ln -sfn "$source" "$dest"
 }
@@ -13,8 +24,17 @@ link() {
 copy() {
     local source="$1"
     local dest="$2"
+    backup "$dest"
     rm -f "$dest"
     cp -p "$source" "$dest"
+}
+
+render() {
+    local source="$1"
+    local dest="$2"
+    backup "$dest"
+    rm -f "$dest"
+    sed "s|@HOME@|${HOME//&/\\&}|g" "$source" > "$dest"
 }
 
 link "$DOTFILES_DIR/home/.gitconfig"        "$HOME/.gitconfig"
@@ -42,7 +62,7 @@ mkdir -p "$HOME/.config/environment.d"
 link "$DOTFILES_DIR/config/environment.d/99-ssh-auth-sock.conf" "$HOME/.config/environment.d/99-ssh-auth-sock.conf"
 
 mkdir -p "$HOME/.config/opencode"
-link "$DOTFILES_DIR/config/opencode/opencode.json"   "$HOME/.config/opencode/opencode.json"
+render "$DOTFILES_DIR/config/opencode/opencode.json"  "$HOME/.config/opencode/opencode.json"
 copy "$DOTFILES_DIR/config/opencode/cli.json"        "$HOME/.config/opencode/cli.json"
 link "$DOTFILES_DIR/config/opencode/agents"          "$HOME/.config/opencode/agents"
 link "$DOTFILES_DIR/config/opencode/commands"        "$HOME/.config/opencode/commands"

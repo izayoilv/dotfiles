@@ -79,10 +79,10 @@
     { "action": "tool.use", "resource": "shell:git *--output *", "effect": "deny" }
   ],
   "instructions": [
-    "/home/izayoilv/.config/opencode/instructions/verify-latest.md",
-    "/home/izayoilv/.config/opencode/instructions/memory.md",
-    "/home/izayoilv/.config/opencode/instructions/code-style.md",
-    "/home/izayoilv/.config/opencode/instructions/docs-location.md"
+    "@HOME@/.config/opencode/instructions/verify-latest.md",
+    "@HOME@/.config/opencode/instructions/memory.md",
+    "@HOME@/.config/opencode/instructions/code-style.md",
+    "@HOME@/.config/opencode/instructions/docs-location.md"
   ],
   "plugins": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "mcp": {

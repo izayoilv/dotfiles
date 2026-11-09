@@ -117,10 +117,6 @@ alias l.='ls -d .*'
 alias clear-history='clear; : > $HISTFILE && fc -R; fastfetch'
 alias sz="source $ZDOTDIR/.zshrc"
 
-if [[ $ZDOTDIR/.zshrc -nt $ZDOTDIR/.zshrc.zwc ]]; then
-  zcompile $ZDOTDIR/.zshrc
-fi
-
 if (( $+commands[fastfetch] )); then
     fastfetch
 fi

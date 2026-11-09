@@ -148,7 +148,7 @@ Gradle is not installed globally; use `./gradlew` in projects. The shell uses Pr
 
 ## LaTeX
 
-`install-tinytex.sh` installs TinyTeX v2026.10 (TeX Live 2026) into `~/.TinyTeX` and the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume. Build documents with `latexmk` as usual.
+`install-tinytex.sh` installs TinyTeX v2026.11 (TeX Live 2026) into `~/.TinyTeX` and the LuaLaTeX, biblatex-apa, biber, and latexmk packages used by the paper and resume. Build documents with `latexmk` as usual.
 
 TinyTeX is self-contained; Fedora TeX Live and system Ruby are not required. Fedora needs `libxcrypt-compat` for TinyTeX's biber:
 
@@ -185,7 +185,7 @@ Manage packages with:
 
 `config/opencode/` holds the repo-managed config: `opencode.json`, `cli.json`, `agents/`, `commands/`, `skills/`, and `instructions/`. Runtime data stays local in `~/.config/opencode/` and is not tracked: `service.json`, `memory/`, `specs/`, `plans/`, and `projects/`.
 
-`cli.json` is copied rather than linked because the terminal client rewrites it; re-copy it after changing TUI settings.
+`cli.json` is copied rather than linked because the terminal client rewrites it; re-copy it after changing TUI settings. `opencode.json` is rendered from a template (`@HOME@` is replaced with `$HOME`) rather than linked, so it works on any username; re-run `./install.sh` after editing it.
 
 ## Installation
 
@@ -204,7 +204,13 @@ sudo ./install-maintenance.sh
 ./install-dotnet.sh
 ```
 
-The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Re-run after updates.
+The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Existing real files/directories are moved to `~/.dotfiles-backup/<timestamp>/` instead of being deleted. Re-run after updates.
+
+To enable the repo's git hooks (commit lint, formatting, secret scan):
+
+```sh
+pre-commit install
+```
 
 ## License
 
