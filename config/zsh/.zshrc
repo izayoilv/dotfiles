@@ -65,9 +65,12 @@ zstyle ':completion:*' menu select
 zstyle ':completion:*' loader yes
 zstyle ':completion:*' list-colors "${(@s.:.)LS_COLORS}"
 
+# Keep compdump outside the repo (survives reboots, avoids writing into dotfiles)
+zcompdump_dir="${XDG_CACHE_HOME:-$HOME/.cache}/zsh"
+mkdir -p "$zcompdump_dir"
 autoload -Uz compinit
 autoload -Uz +X bashcompinit
-compinit
+compinit -d "$zcompdump_dir/.zcompdump"
 bashcompinit
 
 if [[ -s "$HOME/.config/envman/load.sh" ]]; then

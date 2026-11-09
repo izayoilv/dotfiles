@@ -4,7 +4,9 @@ font-feature = +liga,+calt,+dlig
 
 theme = Kanagawa Wave
 background-opacity = 0.90
-background-blur = true
+# background-blur is only supported on macOS and KDE Plasma (KWin).
+# COSMIC's compositor does not implement blur, so it is a no-op here.
+# background-blur = true
 
 cursor-style = block
 cursor-style-blink = true
