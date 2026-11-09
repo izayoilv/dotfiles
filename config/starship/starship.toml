@@ -302,7 +302,8 @@ symbol = "󰡨 "
 symbol      = "\ue866 "
 format      = "[ $symbol$output ](fg:pink)"
 command     = "case \"$DOCKER_HOST\" in *podman*) echo local;; '') podman info --format '{{if .Host.ServiceIsRemote}}remote{{else}}local{{end}}' 2>/dev/null;; esac"
-when        = "case \"$DOCKER_HOST\" in *podman*) ;; '') podman info >/dev/null 2>&1 || exit 1 ;; *) exit 1 ;; esac; for f in compose.yml compose.yaml docker-compose.yml docker-compose.yaml; do [ -f \"$f\" ] && exit 0; done; exit 1"
+# Check for compose files FIRST, so `podman info` (slow) only runs in project dirs.
+when        = "[ -f compose.yml ] || [ -f compose.yaml ] || [ -f docker-compose.yml ] || [ -f docker-compose.yaml ] || exit 1; case \"$DOCKER_HOST\" in *podman*) exit 0 ;; '') podman info >/dev/null 2>&1 ;; *) exit 1 ;; esac"
 shell       = ["bash", "--noprofile", "--norc"]
 description = "Active podman context"
 
