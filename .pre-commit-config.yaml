@@ -1,5 +1,10 @@
 default_install_hook_types: [pre-commit, commit-msg]
 
+# Use the system Node (proto) instead of nodeenv; nodeenv fails to parse
+# current Node release indexes.
+default_language_version:
+  node: system
+
 repos:
   # Commit message linting
   - repo: https://github.com/alessandrojcm/commitlint-pre-commit-hook

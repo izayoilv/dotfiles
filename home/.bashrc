@@ -17,7 +17,6 @@ add_to_path() {
 
 add_to_path "$HOME/bin"
 add_to_path "$HOME/.composer/vendor/bin"
-add_to_path "$HOME/.dotnet/tools"
 add_to_path "$ANDROID_HOME/cmdline-tools/latest/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "/home/linuxbrew/.linuxbrew/bin"

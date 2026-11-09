@@ -24,7 +24,6 @@ config/opencode/plans/
 config/opencode/projects/
 
 # generated
-*.lock
 *.zwc
 .zcompdump*
 *.pyc

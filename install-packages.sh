@@ -17,8 +17,10 @@ cp "$MANIFEST" "$GLOBAL_DIR/package.json"
 
 packages=()
 while IFS= read -r pkg; do
+    pkg="${pkg%%#*}"
+    pkg="$(printf '%s' "$pkg" | sed 's/[[:space:]]*$//')"
     case "$pkg" in
-        ''|'#'*) continue ;;
+        '') continue ;;
     esac
     packages+=("$pkg")
 done < "$PACKAGES"

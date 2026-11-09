@@ -7,6 +7,13 @@ set -euo pipefail
 FONT_DIR="$HOME/.local/share/fonts/JetBrainsMono"
 ARCHIVE_URL="https://github.com/ryanoasis/nerd-fonts/releases/latest/download/JetBrainsMono.tar.xz"
 
+for cmd in curl tar fc-cache; do
+    command -v "$cmd" >/dev/null 2>&1 || {
+        echo "$cmd is required (install fontconfig)" >&2
+        exit 1
+    }
+done
+
 mkdir -p "$FONT_DIR"
 tmpdir="$(mktemp -d)"
 trap 'rm -rf "$tmpdir"' EXIT

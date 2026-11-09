@@ -28,6 +28,7 @@ dotfiles/
 │   ├── uv/                  # uv Python preference
 │   ├── bun/                 # Global Bun CLI manifest + trust list
 │   ├── gradle/              # Shared Gradle user properties
+│   ├── git/template/        # git init template (hooks/description)
 │   ├── opencode/            # OpenCode global config
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
@@ -38,6 +39,7 @@ dotfiles/
 │   ├── maintenance-atomic   # Fedora Atomic (rpm-ostree)
 │   └── maintenance-workstation
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
+├── install-brew.sh          # Homebrew bootstrap + brew bundle
 ├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
 ├── install-fonts.sh         # JetBrainsMono Nerd Font installer
 ├── install-plenv.sh         # plenv (Perl) + Neovim::Ext installer

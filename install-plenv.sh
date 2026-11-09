@@ -7,7 +7,6 @@ set -euo pipefail
 # Perl version (slow; ~10-20 min).
 # Usage: ./install-plenv.sh [--build] [perl-version]
 
-DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 PLENV_ROOT="${PLENV_ROOT:-$HOME/.plenv}"
 
 BUILD=0

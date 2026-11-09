@@ -139,7 +139,8 @@ with full LSP support and format-on-save via [conform.nvim](https://github.com/s
 
 - bashls
 - clangd
-- csharp_ls
+- csharp_ls (general .NET)
+- omnisharp (Unity projects)
 - cssls
 - dockerls
 - eslint

@@ -5,7 +5,6 @@ set -euo pipefail
 # Python provider (pynvim). Uses uv (already installed by install-proto.sh).
 # Usage: ./install-uv-python.sh [python-version]   (default: latest stable)
 
-DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 PY_VERSION="${1:-}"
 VENV_DIR="${NVIM_PYTHON_VENV:-$HOME/.local/share/nvim/python}"
 

@@ -5,7 +5,6 @@ set -euo pipefail
 # Usage: ./install-dotnet.sh [channel]   (default: 9.0)
 # For multiple SDKs, run again with a different channel/version.
 
-DOTFILES_DIR="$(cd "$(dirname "$0")" && pwd)"
 CHANNEL="${1:-9.0}"
 INSTALL_DIR="${DOTNET_ROOT:-$HOME/.dotnet}"
 

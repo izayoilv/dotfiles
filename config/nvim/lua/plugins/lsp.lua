@@ -271,29 +271,37 @@ return {
         -- C# LSP selection: omnisharp for Unity projects, csharp_ls for general .NET.
         -- Both are registered but only one activates per project (via root_dir),
         -- avoiding duplicate diagnostics/completions.
+        -- vim.fs.root does not glob, so match *.sln/*.csproj via a predicate.
         local function is_unity_project(root)
             return root ~= nil
-                and (vim.uv.fs_stat(root .. "/ProjectSettings/ProjectVersion.txt") ~= nil
-                    or vim.uv.fs_stat(root .. "/Assets") ~= nil)
+                and (
+                    vim.uv.fs_stat(root .. "/ProjectSettings/ProjectVersion.txt") ~= nil
+                    or vim.uv.fs_stat(root .. "/Assets") ~= nil
+                )
+        end
+
+        local function csharp_marker(name, _)
+            return name:match("%.sln$") ~= nil
+                or name:match("%.csproj$") ~= nil
+                or name == "Assets"
+                or name == "ProjectSettings"
         end
 
         vim.lsp.config("omnisharp", {
-            root_dir = function(bufnr)
-                local root = vim.fs.root(bufnr, { "*.sln", "*.csproj", "Assets", "ProjectSettings" })
+            root_dir = function(bufnr, on_dir)
+                local root = vim.fs.root(bufnr, csharp_marker)
                 if root and is_unity_project(root) then
-                    return root
+                    on_dir(root)
                 end
-                return nil
             end,
         })
 
         vim.lsp.config("csharp_ls", {
-            root_dir = function(bufnr)
-                local root = vim.fs.root(bufnr, { "*.sln", "*.csproj" })
+            root_dir = function(bufnr, on_dir)
+                local root = vim.fs.root(bufnr, csharp_marker)
                 if root and not is_unity_project(root) then
-                    return root
+                    on_dir(root)
                 end
-                return nil
             end,
         })
 
