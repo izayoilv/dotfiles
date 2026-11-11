@@ -4,6 +4,7 @@ path=(
     "$HOME/.proto/bin"
     "$HOME/.cargo/bin"
     "$HOME/.local/bin"
+    "$HOME/.android/bin"
     "$HOME/go/bin"
     "$HOME/.bun/bin"
     "$HOME/.local/share/npm/bin"
@@ -18,6 +19,8 @@ path=(
     $path
 )
 
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
 export PERL5LIB="$HOME/perl5/lib/perl5${PERL5LIB:+:$PERL5LIB}"
 export DOTNET_ROOT="$HOME/.dotnet"
 export PATH

@@ -6,9 +6,6 @@ if [ -z "${DOTFILES_PROFILE_LOADED:-}" ] && [ -f "$HOME/.profile" ]; then
     . "$HOME/.profile"
 fi
 
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-
 add_to_path() {
     if [ -d "$1" ] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="$1:$PATH"
@@ -17,7 +14,7 @@ add_to_path() {
 
 add_to_path "$HOME/bin"
 add_to_path "$HOME/.composer/vendor/bin"
-add_to_path "$ANDROID_HOME/cmdline-tools/latest/bin"
+add_to_path "$HOME/.android/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
 add_to_path "/home/linuxbrew/.linuxbrew/bin"
 if [ -x /home/linuxbrew/.linuxbrew/bin/brew ]; then

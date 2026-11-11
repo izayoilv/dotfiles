@@ -40,6 +40,7 @@ dotfiles/
 │   ├── maintenance-workstation
 │   └── toolbox-terminfo     # Install xterm-ghostty terminfo in Toolbx
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
+├── install-android.sh       # Android CLI + SDK packages
 ├── install-brew.sh          # Homebrew bootstrap + brew bundle
 ├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
 ├── install-fonts.sh         # JetBrainsMono Nerd Font installer
@@ -146,6 +147,10 @@ Gradle is not installed globally; use `./gradlew` in projects. The shell uses Pr
 - Perl: `./install-plenv.sh` (plenv + Neovim::Ext). Defaults to system Perl
   (latest stable); pass `--build` to compile a separate version.
 - Python: `./install-uv-python.sh` (uv-managed venv + pynvim for nvim).
+- Android: `./install-android.sh` installs the standalone Android CLI
+  (`~/.android/bin/android`, replaces the deprecated `sdkmanager`) and the SDK
+  packages used by kotlin-starter (`platform-tools`, `platforms;android-37.0`,
+  `build-tools;37.0.0`) into `~/Android/Sdk`.
 
 ## LaTeX
 
@@ -208,6 +213,7 @@ sudo ./install-maintenance.sh
 ./install-plenv.sh
 ./install-uv-python.sh
 ./install-dotnet.sh
+./install-android.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Existing real files/directories are moved to `~/.dotfiles-backup/<timestamp>/` instead of being deleted. Re-run after updates.

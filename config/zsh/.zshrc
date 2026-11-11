@@ -1,8 +1,5 @@
 [[ $- != *i* ]] && return
 
-export ANDROID_HOME="$HOME/Android/Sdk"
-export ANDROID_SDK_ROOT="$ANDROID_HOME"
-
 add_to_path() {
     if [[ -d "$1" ]] && [[ ":$PATH:" != *":$1:"* ]]; then
         export PATH="$1:$PATH"
@@ -18,7 +15,7 @@ add_to_path "$HOME/.cargo/bin"
 add_to_path "$HOME/.composer/vendor/bin"
 add_to_path "$HOME/.dotnet/tools"
 add_to_path "$HOME/go/bin"
-add_to_path "$ANDROID_HOME/cmdline-tools/latest/bin"
+add_to_path "$HOME/.android/bin"
 add_to_path "$ANDROID_HOME/platform-tools"
 
 HISTFILE="$HOME/.zsh_history"

@@ -3,6 +3,8 @@
 export PROTO_HOME="$HOME/.proto"
 export NPM_CONFIG_PREFIX="$HOME/.local/share/npm"
 export PNPM_HOME="$HOME/.local/share/pnpm"
+export ANDROID_HOME="$HOME/Android/Sdk"
+export ANDROID_SDK_ROOT="$ANDROID_HOME"
 
 if [ -L "$HOME/.proto/bin/java" ]; then
     _java_bin="$(readlink -f "$HOME/.proto/bin/java")"
@@ -16,6 +18,7 @@ for _proto_path in \
     "$HOME/.bun/bin" \
     "$HOME/.local/share/pnpm/bin" \
     "$HOME/.local/share/npm/bin" \
+    "$HOME/.android/bin" \
     "$HOME/go/bin" \
     "$HOME/.local/bin" \
     "$HOME/.cargo/bin" \
