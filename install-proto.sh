@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROTO_VERSION="${PROTO_VERSION:-0.63.2}"
+# "latest" resolves the current GitHub release; set PROTO_VERSION to pin.
+PROTO_VERSION="${PROTO_VERSION:-latest}"
 export PROTO_HOME="${PROTO_HOME:-$HOME/.proto}"
 INSTALL_DIR="$PROTO_HOME/bin"
 PYTHON_VERSION="${PYTHON_VERSION:-3.14}"
@@ -64,6 +65,17 @@ installed_version() {
     fi
 }
 
+resolve_latest_version() {
+    local url
+    url="$(curl --proto '=https' --tlsv1.2 -fsSIL -o /dev/null -w '%{url_effective}' \
+        "https://github.com/moonrepo/proto/releases/latest")" ||
+        die "failed to resolve the latest proto release"
+    case "$url" in
+        */tag/v*) printf '%s\n' "${url##*/tag/v}" ;;
+        *) die "unexpected latest release URL: $url" ;;
+    esac
+}
+
 install_proto() {
     local current target archive base_url expected actual extracted
     current="$(installed_version || true)"
@@ -117,6 +129,9 @@ ensure_rustup() {
 }
 
 mkdir -p "$INSTALL_DIR"
+if [ "$PROTO_VERSION" = "latest" ]; then
+    PROTO_VERSION="$(resolve_latest_version)"
+fi
 install_proto
 
 export PATH="$INSTALL_DIR:$PROTO_HOME/shims:$HOME/.cargo/bin:$PATH"
