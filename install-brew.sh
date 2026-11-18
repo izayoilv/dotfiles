@@ -22,3 +22,8 @@ require() {
 require brew
 
 brew bundle --file="$BREWFILE"
+
+if command -v podman >/dev/null 2>&1; then
+    systemctl --user enable --now podman.socket ||
+        echo "warning: could not enable podman.socket; enable it manually" >&2
+fi

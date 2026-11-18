@@ -29,6 +29,10 @@ export PROTO_HOME="$HOME/.proto"
 export NPM_CONFIG_PREFIX="$HOME/.local/share/npm"
 export PNPM_HOME="$HOME/.local/share/pnpm"
 
+if [ -n "${XDG_RUNTIME_DIR:-}" ] && [ -S "$XDG_RUNTIME_DIR/podman/podman.sock" ]; then
+    export DOCKER_HOST="unix://$XDG_RUNTIME_DIR/podman/podman.sock"
+fi
+
 if [ -L "$HOME/.proto/bin/java" ]; then
     _java_bin="$(readlink -f "$HOME/.proto/bin/java")"
     export JAVA_HOME="${_java_bin%/bin/java}"

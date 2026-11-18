@@ -24,3 +24,11 @@ brew "starship"
 brew "tmux"
 brew "tree-sitter-cli"
 brew "woodpecker-cli"
+
+# CI / GitHub Actions
+brew "actionlint"
+brew "act"
+brew "gh"
+brew "shellcheck"
+brew "yamllint"
+brew "zizmor"

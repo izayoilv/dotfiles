@@ -3,6 +3,7 @@ set -euo pipefail
 
 # Installs a uv-managed Python and creates an isolated venv for Neovim's
 # Python provider (pynvim). Uses uv (already installed by install-proto.sh).
+# Also installs pyflakes for actionlint's Python checks.
 # Usage: ./install-uv-python.sh [python-version]   (default: latest stable)
 
 PY_VERSION="${1:-}"
@@ -29,5 +30,8 @@ uv venv --python "$UV_PYTHON" "$VENV_DIR" --clear
 
 echo "Installing pynvim..."
 uv pip install --python "$VENV_DIR" pynvim
+
+echo "Installing pyflakes for actionlint..."
+uv tool install --python "$UV_PYTHON" pyflakes
 
 echo "Done. nvim python3 provider: $VENV_DIR/bin/python"
