@@ -33,6 +33,7 @@ dotfiles/
 │   ├── sheldon/             # Sheldon (zsh plugin manager)
 │   ├── starship/            # Starship prompt
 │   ├── fastfetch/           # System info
+│   ├── bat/                 # bat config (Kanagawa theme installed separately)
 │   └── ghostty/             # Ghostty terminal
 ├── packages/                # Bun global CLI inventory
 ├── scripts/                 # Host maintenance scripts
@@ -41,6 +42,7 @@ dotfiles/
 │   └── toolbox-terminfo     # Install xterm-ghostty terminfo in Toolbx
 ├── Brewfile                 # Homebrew bundle (install-brew.sh)
 ├── install-android.sh       # Android CLI + SDK packages
+├── install-bat.sh           # Kanagawa tmTheme for bat + cache rebuild
 ├── install-brew.sh          # Homebrew bootstrap + brew bundle
 ├── install-dotnet.sh        # .NET SDK + csharp-ls (official script, user-space)
 ├── install-fonts.sh         # JetBrainsMono Nerd Font installer
@@ -70,6 +72,7 @@ dotfiles/
 | **sheldon**   | Lightweight zsh plugin manager configuration                                                                                                                                                                         |
 | **starship**  | Cross-shell prompt with Kanagawa colors                                                                                                                                                                              |
 | **fastfetch** | System info display                                                                                                                                                                                                  |
+| **bat**       | Kanagawa theme from [kanagawa.nvim](https://github.com/rebelot/kanagawa.nvim) (installed by `install-bat.sh`), auto paging, italic comments                                                                         |
 | **ghostty**   | Fast terminal emulator                                                                                                                                                                                               |
 
 ### Home dotfiles
@@ -209,6 +212,7 @@ sudo ./install-maintenance.sh
 ./install-tinytex.sh
 ./install-packages.sh
 ./install-brew.sh
+./install-bat.sh
 ./install-fonts.sh
 ./install-plenv.sh
 ./install-uv-python.sh
@@ -217,6 +221,8 @@ sudo ./install-maintenance.sh
 ```
 
 The `install.sh` script creates symlinks from `~/.config/` and `$HOME` to the repo. Existing real files/directories are moved to `~/.dotfiles-backup/<timestamp>/` instead of being deleted. Re-run after updates.
+
+`install-bat.sh` downloads the official Kanagawa tmTheme into `${XDG_CONFIG_HOME:-~/.config}/bat/themes/` and rebuilds bat's cache. Run it after `install-brew.sh` (which installs bat); re-run it to pick up upstream theme changes. The generated theme is not committed. Because bat only discovers custom themes under its config directory, that directory stays real and only `config` is symlinked from the repo. Set `KANAGAWA_REF` to a tag or commit to pin the theme instead of tracking `master`.
 
 To enable the repo's git hooks (commit lint, formatting, secret scan):
 
