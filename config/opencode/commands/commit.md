@@ -4,5 +4,8 @@ description: Create a conventional commit from staged changes.
 
 Inspect `git status` and `git diff --cached`. If nothing is staged, ask which
 files to stage — never blanket-add. Write a concise conventional-commit
-message matching the repo's existing style (`git log --oneline -10`), commit
-once, report the hash. Never push unless explicitly asked. $ARGUMENTS
+message matching the repo's existing style (`git log --oneline -10`). Follow
+the external-writing instruction: the message must stand alone for a reader
+who has only the repository and public issue tracker. Include a body when the
+subject cannot carry the why and verification. Commit once, report the hash.
+Never push unless explicitly asked. $ARGUMENTS

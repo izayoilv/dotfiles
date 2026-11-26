@@ -82,7 +82,8 @@
     "@HOME@/.config/opencode/instructions/verify-latest.md",
     "@HOME@/.config/opencode/instructions/memory.md",
     "@HOME@/.config/opencode/instructions/code-style.md",
-    "@HOME@/.config/opencode/instructions/docs-location.md"
+    "@HOME@/.config/opencode/instructions/docs-location.md",
+    "@HOME@/.config/opencode/instructions/external-writing.md"
   ],
   "plugins": ["superpowers@git+https://github.com/obra/superpowers.git"],
   "mcp": {
