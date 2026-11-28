@@ -4,6 +4,7 @@ return {
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
     keys = {
         { "<leader>gv", "<cmd>DiffviewOpen<cr>", desc = "Git Diff View" },
+        { "<leader>gM", "<cmd>DiffviewOpen origin/main...HEAD<cr>", desc = "Git Diff vs origin/main" },
         { "<leader>gh", "<cmd>DiffviewFileHistory %<cr>", desc = "Git File History" },
         { "<leader>gH", "<cmd>DiffviewFileHistory<cr>", desc = "Git Branch History" },
         -- No <leader>gc map: it would shadow the git-conflict <leader>gc* prefix.
