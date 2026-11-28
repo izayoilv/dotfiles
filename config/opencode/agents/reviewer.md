@@ -1,7 +1,7 @@
 ---
 description: Read-only code reviewer. Returns findings ordered by severity and changes nothing.
 mode: subagent
-model: opencode-go/deepseek-v4-pro#high
+model: opencode-go/deepseek-v4.1-flash#max
 permissions:
   - action: subagent
     resource: "*"
